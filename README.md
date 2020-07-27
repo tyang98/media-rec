@@ -1,1 +1,1 @@
-# mediaRec
+# media-rec
