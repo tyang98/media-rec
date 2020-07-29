@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import SongsRec from './components/SongsRec.js';
+import Movies from './components/Movies.js';
+import { Button, Container } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import {
+  Route,
+  HashRouter
+} from 'react-router-dom';
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <HashRouter>
+        <Container className='mt-5'>
+          <LinkContainer to="/songsrec">
+            <Button className='col-md-6' size='lg' variant='outline-primary' >Spotify log in</Button>
+          </LinkContainer>
+          <LinkContainer to="/movies">
+            <Button className='col-md-6' size='lg' variant='outline-primary' >Movies</Button>
+          </LinkContainer>
+        </Container>
+        <Route path="/songsrec" component={SongsRec} />
+        <Route path="/movies" component={Movies} />
+      </HashRouter>
     </div>
   );
 }
