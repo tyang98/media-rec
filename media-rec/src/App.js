@@ -16,12 +16,12 @@ function App() {
   return (
     <div>
       <HashRouter>
-        <Container className='mt-5'>
+        <Container className='mt-5' >
           <LinkContainer to="/songsrec">
-            <Button className='col-md-6' size='lg' variant='outline-primary' >Spotify log in</Button>
+            <Button className='col-md-5' size='lg' variant='outline-primary' >Spotify log in</Button>
           </LinkContainer>
           <LinkContainer to="/movies">
-            <Button className='col-md-6' size='lg' variant='outline-primary' >Movies</Button>
+            <Button className='col-md-5' size='lg' variant='outline-primary' >Movies</Button>
           </LinkContainer>
         </Container>
         <Route path="/songsrec" component={SongsRec} />
