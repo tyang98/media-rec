@@ -72,12 +72,13 @@ function SongsRec() {
     })
       .then(response => response.json())
       .then(data => {
-        let username = data.country;
+        let email = data.email;
         let name = data.display_name;
-        setUser({ username, name })
+        let id = data.id;
+        setUser({ email, name, id })
       })
 
-  }
+  }, []
   );
 
   return (
