@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SongsRec from './components/SongsRec.js';
 import Movies from './components/Movies.js';
@@ -8,14 +8,25 @@ import {
   Route,
   HashRouter
 } from 'react-router-dom';
+import queryString from 'query-string';
 
 
 
 
 function App() {
+
+  const handleLogIn = () => window.location = 'http://localhost:8888/login';
+
+
+  useEffect(() => {
+    let token = queryString.parse(window.location.search);
+    console.log(token);
+
+  }
+  );
   return (
     <div>
-      <HashRouter>
+      {/* <HashRouter>
         <Container className='mt-5' >
           <LinkContainer to="/songsrec">
             <Button className='col-md-5' size='lg' variant='outline-primary' >Spotify log in</Button>
@@ -26,7 +37,10 @@ function App() {
         </Container>
         <Route path="/songsrec" component={SongsRec} />
         <Route path="/movies" component={Movies} />
-      </HashRouter>
+      </HashRouter> */}
+      <Container className='mt-5'>
+        <Button onClick={handleLogIn} className='col-md-5' size='lg' variant='outline-primary'>Spotify Log In</Button>
+      </Container>
     </div>
   );
 }
