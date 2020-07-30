@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, ListGroup, Badge } from 'react-bootstrap';
 import SongsForm from './SongsForm.js';
+import queryString from 'query-string';
 
 
 
 
 function SongsRec() {
   // Set user data state with dummy data for now
-  const [user, setUser] = useState(
-    {
-      username: "user1",
-      name: "Henry William Yang",
-    }
+  const [user, setUser] = useState([]
+    // {
+    //   username: "user1",
+    //   name: "Henry William Yang",
+    // }
   );
   // Set liked songs
   const [likedSongs, setLikedSongs] = useState([
@@ -62,7 +63,22 @@ function SongsRec() {
     setSelectedSongs(newSongs)
   };
 
+  useEffect(() => {
 
+    let accessToken = queryString.parse(window.location.href.slice(32)).access_token
+
+    fetch('https://api.spotify.com/v1/me', {
+      headers: { 'Authorization': 'Bearer ' + accessToken }
+    })
+      .then(response => response.json())
+      .then(data => {
+        let username = data.country;
+        let name = data.display_name;
+        setUser({ username, name })
+      })
+
+  }
+  );
 
   return (
     <Container className="mt-5">
