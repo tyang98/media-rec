@@ -21,7 +21,7 @@ class Spotify {
       window.location = accessUrl;
     }
 
-  },
+  }
 
 
   async search(term) {
