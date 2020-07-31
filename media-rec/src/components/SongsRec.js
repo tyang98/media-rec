@@ -5,8 +5,6 @@ import SongsForm from './SongsForm.js';
 import queryString from 'query-string';
 
 
-
-
 function SongsRec() {
   // Set user data state with dummy data for now
   const [user, setUser] = useState([]
