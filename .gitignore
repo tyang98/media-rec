@@ -2,6 +2,6 @@ recommender/
 env/
 venv/
 node_modules/
-__pychache__/
+__pycache__/
 yarn.lock
 package.json
