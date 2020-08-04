@@ -6,7 +6,6 @@ import { Button } from 'react-bootstrap';
 function SearchBar(props) {
   const initialSearchTerm = () => String(window.localStorage.getItem('searchTerm') || "")
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
-  const { search } = props;
 
   useEffect(() => {
     window.localStorage.setItem('searchTerm', searchTerm);
@@ -14,7 +13,7 @@ function SearchBar(props) {
 
   async function handleSearch() {
     try {
-      await search.searchSpotify(searchTerm);
+      await props.searchSpotify(searchTerm);
     } catch (error) {
       console.warn(error)
       const clientId = '3860186b260d438ba9e591c673f3ed0e';

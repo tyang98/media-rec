@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup, Badge, Row, Col } from 'react-bootstrap';
+import { Container, ListGroup, Badge, Row } from 'react-bootstrap';
 import SongsForm from './SongsForm.js';
 import queryString from 'query-string';
-
+import Spotify from './../utils/Spotify.js'
+import SearchBar from './SearchBar.js';
+import SongDisplay from './SongDisplay.js';
+import Song from './Song.js';
 
 function SongsRec() {
   // Set user data state with dummy data for now
+  const [spotifyToken, setSpotifyToken] = useState(null);
+  const [searchedSongs, setSearchedSongs] = useState([]);
+  const [playlistSongs, setPlaylistSongs] = useState([]);
   const [user, setUser] = useState([]);
+
 
   // Set liked songs
   const [likedSongs, setLikedSongs] = useState([
@@ -21,9 +28,9 @@ function SongsRec() {
 
   //Set selected songs with dummy data
   const [selectedSongs, setSelectedSongs] = useState([
-    { name: "Stairway to Heaven", artist: "Led Zeppelin" },
-    { name: "Smoke On the Water", artist: "Deep Purple" },
-    { name: "Africa", artist: "Toto" }
+    { name: "Stairway to Heaven", artist: [{ name: "Led Zeppelin" }] },
+    { name: "Smoke On the Water", artist: [{ name: "Deep Purple" }] },
+    { name: "Africa", artist: [{ name: "Toto" }] }
   ]);
 
   const addSong = (name, artist) => {
@@ -36,10 +43,27 @@ function SongsRec() {
     let accessToken = queryString.parse(window.location.href.slice(32)).access_token
     getUserInfo(accessToken);
     getPlaylists(accessToken);
-
+    setSpotifyToken(accessToken);
 
   }, []
   );
+
+  async function searchSpotify(terms) {
+    const results = await Spotify.search(terms);
+    setSearchedSongs(results);
+  }
+
+  const addSongToPlaylist = (song) => {
+    setPlaylistSongs(playlistSongs => {
+      if (playlistSongs.includes(song)) {
+        return playlistSongs;
+      }
+      else {
+        return [...playlistSongs, song];
+      }
+    });
+  }
+
 
   const getUserInfo = (accessToken =>
     fetch('https://api.spotify.com/v1/me', {
@@ -104,15 +128,6 @@ function SongsRec() {
 
   }
 
-
-
-
-
-
-
-
-
-
   return (
     <Container className="mt-5">
       <h1>Hello, <b>{user.name}</b> </h1>
@@ -157,35 +172,25 @@ function SongsRec() {
         </Row>
       </ListGroup>
 
+      {/* Put search bar here */}
+      <Container className='mt-5'>
+        <SearchBar searchSpotify={searchSpotify} />
+      </Container>
+      <Container className='mt-5'>
+        <SongDisplay songs={searchedSongs} addSongToPlaylist={addSongToPlaylist} />
+      </Container>
+
       {/* Displays selected songs */}
       <Container className="mt-4">
         <SongsForm addSong={addSong} />
       </Container>
       <Badge className="mt-4">Current list of selected songs</Badge>
-      <ListGroup >
-        {selectedSongs.map((song, index) => (
-          <Song
-            key={index}
-            song={song}
-          />
-        ))}
-      </ListGroup>
+      <SongDisplay songs={selectedSongs} />
 
     </Container>
   );
 }
 
-function Song({ key, song }) {
-  return <ListGroup className="list-group list-group-horizontal">
-    <ListGroup.Item
-      className="col-md-3 list-group-item">
-      <img src={song.imageurl} alt='none' style={{ width: '100%' }}></img>
-    </ListGroup.Item>
-    <ListGroup.Item className="col-md-9 list-group-item">
-      {key} {song.name}<br></br>
-      {song.artists == null ? "None" : song.artists.map((artist, index) => artist.name + (index === song.artists.length - 1 ? "" : ", "))}
-    </ListGroup.Item></ListGroup>
 
-}
 
 export default SongsRec;

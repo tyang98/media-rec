@@ -1,23 +1,23 @@
 import React from 'react';
 import Song from './Song.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { ListGroup } from 'react-bootstrap';
 
 function SongDisplay({ songs, addSongToPlaylist }) {
   return (
     <div className="SongDisplay">
       <h2>Songs</h2>
-      <div className="SongList">
+      <ListGroup >
         {
           songs.map(song => {
             return (
               <Song
                 key={song.id}
-                track={song}
-                songActionCharacter="+"
-                handleSongAction={addSongToPlaylist}
+                song={song}
               />)
           })
         }
-      </div>
+      </ListGroup>
     </div>
   )
 }

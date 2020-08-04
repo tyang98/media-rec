@@ -1,20 +1,17 @@
 import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { ListGroup } from 'react-bootstrap';
 
-function Song({ track, handleSongAction, songActionCharacter }) {
-
-  const { title, artist, album } = track
-  return (
-    <div className="Song">
-      <div className="Song-information">
-        <h3>{title}</h3>
-        <p>{artist} | {album}</p>
-      </div>
-      <a className="Song-action"
-        onClick={() => handleSongAction(track)}>
-        {songActionCharacter}
-      </a>
-    </div>
-  )
+function Song({ key, song }) {
+  return <ListGroup className="list-group list-group-horizontal">
+    <ListGroup.Item
+      className="col-md-3 list-group-item">
+      <img src={song.imageurl} alt='none' style={{ width: '100%' }}></img>
+    </ListGroup.Item>
+    <ListGroup.Item className="col-md-9 list-group-item">
+      {key} {song.name}<br></br>
+      {song.artists == null ? "None" : song.artists.map((artist, index) => artist.name + (index === song.artists.length - 1 ? "" : ", "))}
+    </ListGroup.Item></ListGroup>
 
 }
 
