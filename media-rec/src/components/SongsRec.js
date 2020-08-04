@@ -49,7 +49,7 @@ function SongsRec() {
   );
 
   async function searchSpotify(terms) {
-    const results = await Spotify.search(terms);
+    const results = await Spotify.search(terms, spotifyToken);
     setSearchedSongs(results);
   }
 

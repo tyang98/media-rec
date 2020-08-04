@@ -1,5 +1,5 @@
 const clientId = '3860186b260d438ba9e591c673f3ed0e';
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://localhost:8888/callback';
 
 class Spotify {
   static async search(searchTerm, token) {
