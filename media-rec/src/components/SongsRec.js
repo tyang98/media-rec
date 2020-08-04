@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup, Badge, Row } from 'react-bootstrap';
+import { Container, ListGroup, Badge, Row, Image } from 'react-bootstrap';
 import SongsForm from './SongsForm.js';
 import queryString from 'query-string';
 import Spotify from './../utils/Spotify.js'
@@ -113,7 +113,8 @@ function SongsRec() {
                 let artists = item.track.artists;
                 let id = item.track.id;
                 let imageurl = item.track.album.images[0].url;
-                return { name, artists, id, imageurl };
+                let songurl = item.track.external_urls.spotify;
+                return { name, artists, id, imageurl, songurl };
               })
 
             )
@@ -157,7 +158,7 @@ function SongsRec() {
 
             >
               {/* {console.log(playlist)} */}
-              <img src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></img>
+              <Image src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></Image>
 
               <a href={playlist.playlisturl} target='_blank' rel='noopener noreferrer' className="badge badge-primary mt-4 mb-4">{playlist.name}</a>
               {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
