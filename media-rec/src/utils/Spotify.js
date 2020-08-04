@@ -6,20 +6,19 @@ class Spotify {
     const url = `https://api.spotify.com/v1/search?q=${searchTerm}&type=track`
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${token}`
+        'Authorization': 'Bearer ' + token
       }
     });
 
     const jsonResponse = await response.json();
     if (jsonResponse.tracks.items) {
       return jsonResponse.tracks.items.map(track => {
-        return {
-          id: track.id,
-          title: track.name,
-          artist: track.artists[0].name,
-          album: track.album.name,
-          image: track.images[0]
-        };
+        let name = track.name;
+        let artists = track.artists;
+        let id = track.id;
+        let imageurl = track.album.images[0].url;
+        let songurl = track.external_urls.spotify;
+        return { name, artists, id, imageurl, songurl };
       });
     }
   }

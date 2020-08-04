@@ -13,8 +13,6 @@ function Song({ key, song }) {
       {key} <br></br>
       {song.artists == null ? "None" : song.artists.map((artist, index) => artist.name + (index === song.artists.length - 1 ? "" : ", "))}
     </ListGroup.Item></ListGroup>
-
 }
-
 
 export default Song; 

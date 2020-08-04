@@ -1,42 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import './../styles/songsform.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
-function SearchBar(props) {
+function SearchBar({ token, searchSpotify }) {
   const initialSearchTerm = () => String(window.localStorage.getItem('searchTerm') || "")
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
 
-  useEffect(() => {
-    window.localStorage.setItem('searchTerm', searchTerm);
-  }, [searchTerm])
-
-  async function handleSearch() {
-    try {
-      await props.searchSpotify(searchTerm);
-    } catch (error) {
-      console.warn(error)
-      const clientId = '3860186b260d438ba9e591c673f3ed0e';
-      const currentUrl = window.location.href;
-      window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${currentUrl}`;
-    }
-  }
-
-  async function handleKeyPress(result) {
-    if (result.key === "Enter") {
-      await handleSearch();
-    }
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!searchTerm) return;
+    searchSpotify(searchTerm);
+    setSearchTerm("");
   }
 
   return (
-    <div className="SearchBar">
+    <Form onSubmit={handleSubmit} className="searchBar">
       <input
-        onChange={result => setSearchTerm(result.target.value)}
-        placeholder="Enter A Song Title"
-        onKeyPress={handleKeyPress}
-        value={searchTerm} />
-      <Button onClick={handleSearch}>Search</Button>
-    </div>
+        onChange={e => setSearchTerm(e.target.value)}
+        placeholder="Enter Song Name"
+        value={searchTerm}
+      >
+      </input>
+      <Button type="submit">Submit</Button>
+    </Form>
+
   )
 }
 

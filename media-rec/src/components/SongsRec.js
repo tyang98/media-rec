@@ -5,6 +5,7 @@ import SongsForm from './SongsForm.js';
 import queryString from 'query-string';
 import Spotify from './../utils/Spotify.js'
 import SearchBar from './SearchBar.js';
+
 import SongDisplay from './SongDisplay.js';
 import Song from './Song.js';
 
@@ -45,6 +46,7 @@ function SongsRec() {
     getPlaylists(accessToken);
     setSpotifyToken(accessToken);
 
+
   }, []
   );
 
@@ -84,7 +86,7 @@ function SongsRec() {
     })
       .then(response => response.json())
       .then(playlistData => {
-        console.log(playlistData)
+
         const playlistArr = playlistData.items.map(data => {
           let name = data.name;
           let id = data.id;
@@ -92,7 +94,7 @@ function SongsRec() {
           let image = data.images[0];
           return { name, id, playlisturl, image };
         })
-        console.log(playlistArr)
+
 
         let playlistTracks = playlistData.items.map(playlist => {
           let links = fetch(playlist.tracks.href, {
@@ -108,7 +110,7 @@ function SongsRec() {
             // console.log(tracksArr)
             let playlistsTracks = tracksArr.map(playlist =>
               playlist.map(item => {
-                console.log(item)
+
                 let name = item.track.name;
                 let artists = item.track.artists;
                 let id = item.track.id;
@@ -160,7 +162,13 @@ function SongsRec() {
               {/* {console.log(playlist)} */}
               <Image src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></Image>
 
-              <a href={playlist.playlisturl} target='_blank' rel='noopener noreferrer' className="badge badge-primary mt-4 mb-4">{playlist.name}</a>
+              <a href={playlist.playlisturl}
+                target='_blank'
+                rel='noopener noreferrer'
+                className="badge badge-primary mt-4 mb-4"
+              >
+                {playlist.name}
+              </a>
               {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
                 <Song
                   key={index}
@@ -175,10 +183,11 @@ function SongsRec() {
 
       {/* Put search bar here */}
       <Container className='mt-5'>
-        <SearchBar searchSpotify={searchSpotify} />
+        <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
+        {console.log(searchedSongs)}
       </Container>
       <Container className='mt-5'>
-        <SongDisplay songs={searchedSongs} addSongToPlaylist={addSongToPlaylist} />
+        <SongDisplay songs={searchedSongs} />
       </Container>
 
       {/* Displays selected songs */}
