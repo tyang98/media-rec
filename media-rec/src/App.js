@@ -18,8 +18,30 @@ function App() {
 
   const handleLogIn = () => window.location = 'http://localhost:8888/login';
 
+  const [searchedSongs, setSearchedSongs] = useState([]);
+  const [spotifyToken, setSpotifyToken] = useState(null);
+  const [playlistSongs, setPlaylistSongs] = useState([]);
 
+  useEffect(() => {
+    const spotifyTokenFromUrlFragment = window.location.hash.split('&')[0].substr(14);
+    setSpotifyToken(spotifyTokenFromUrlFragment);
+  }, [])
 
+  async function searchSpotify(terms) {
+    const results = await Spotify.search(terms, spotifyToken);
+    setSearchedSongs(results);
+  }
+
+  const addSongToPlaylist = (song) => {
+    setPlaylistSongs(playlistSongs => {
+      if (playlistSongs.includes(song)) {
+        return playlistSongs;
+      }
+      else {
+        return [...playlistSongs, song];
+      }
+    });
+  }
 
   return (
     <div>
@@ -39,6 +61,12 @@ function App() {
       </HashRouter>
       <Container className='mt-5'>
         <Button onClick={handleLogIn} className='col-md-5' size='lg' variant='outline-primary'>Spotify Log In</Button>
+      </Container>
+      <Container className='mt-5'>
+        <SearchBar searchSpotify={searchSpotify} />
+      </Container>
+      <Container className='mt-5'>
+        <SongDisplay songs={searchedSongs} addSongToPlaylist={addSongToPlaylist} />
       </Container>
     </div>
   );

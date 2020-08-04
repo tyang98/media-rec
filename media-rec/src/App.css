@@ -1,5 +1,13 @@
 .App {
-  text-align: center;
+  height: 100%;
+  padding: 0 17% 10% 17%;
+  background-image: url('./tempbkgd.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-weight: 500;
+  color: #fff;
+  background-color: aliceblue;
 }
 
 .App-logo {

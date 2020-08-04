@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import './../styles/songsform.css';
+import './../styles/SongsForm.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 
 function SearchBar(props) {
   const initialSearchTerm = () => String(window.localStorage.getItem('searchTerm') || "")
@@ -22,20 +23,20 @@ function SearchBar(props) {
     }
   }
 
-  async function handleKeyPress(e) {
-    if (e.key === "Enter") {
+  async function handleKeyPress(result) {
+    if (result.key === "Enter") {
       await handleSearch();
     }
   }
 
   return (
-    <div className="search">
+    <div className="SearchBar">
       <input
-        onChange={e => setSearchTerm(e.target.value)}
+        onChange={result => setSearchTerm(result.target.value)}
         placeholder="Enter A Song Title"
         onKeyPress={handleKeyPress}
         value={searchTerm} />
-      <a onClick={handleSearch}>Search</a>
+      <Button onClick={handleSearch}>Search</Button>
     </div>
   )
 }
