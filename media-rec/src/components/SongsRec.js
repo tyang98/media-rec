@@ -84,10 +84,12 @@ function SongsRec() {
             // console.log(tracksArr)
             let playlistsTracks = tracksArr.map(playlist =>
               playlist.map(item => {
+                console.log(item)
                 let name = item.track.name;
                 let artists = item.track.artists;
                 let id = item.track.id;
-                return { name, artists, id };
+                let imageurl = item.track.album.images[0].url;
+                return { name, artists, id, imageurl };
               })
 
             )
@@ -130,13 +132,14 @@ function SongsRec() {
 
       {/* Display user's playlists */}
       <ListGroup className="justify-content-md-center" horizontal>
-        <Row xs={3} md={3} lg={3}>
+        <Row xs={3} md={3} lg={3} >
           {playlists.map((playlist, index) => (
 
             <ListGroup
               className="col-md-5 mt-4"
               key={index}
               name={playlist.name}
+
             >
               {/* {console.log(playlist)} */}
               <img src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></img>
@@ -173,8 +176,10 @@ function SongsRec() {
 }
 
 function Song({ key, song }) {
-  return <ListGroup.Item>{key} {song.name},<br></br>
-    {song.artists == null ? "None" : song.artists.map((artist, index) => artist.name + (index === song.artists.length - 1 ? "" : ", "))} </ListGroup.Item>
+  return <ListGroup className="list-group list-group-horizontal">
+    <ListGroup.Item className="col-md-3 list-group-item"><img src={song.imageurl} alt='none' style={{ width: '100%' }}></img></ListGroup.Item>
+    <ListGroup.Item className="col-md-9 list-group-item">{key} {song.name}<br></br>
+      {song.artists == null ? "None" : song.artists.map((artist, index) => artist.name + (index === song.artists.length - 1 ? "" : ", "))} </ListGroup.Item></ListGroup>
 
 }
 
