@@ -3,12 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SongsRec from './components/SongsRec.js';
 import Movies from './components/Movies.js';
 import { Button, Container } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+
 import {
   Route,
   HashRouter
 } from 'react-router-dom';
-import queryString from 'query-string';
+import SearchBar from './components/SearchBar.js';
+
 
 
 
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <div>
+
       <HashRouter>
         <Container className='mt-5' >
           {/* <LinkContainer to="/songsrec">
@@ -31,6 +33,7 @@ function App() {
             <Button className='col-md-5' size='lg' variant='outline-primary' >Movies</Button>
           </LinkContainer> */}
         </Container>
+        <SearchBar></SearchBar>
         <Route path="/songsrec" component={SongsRec} />
         <Route path="/movies" component={Movies} />
       </HashRouter>
