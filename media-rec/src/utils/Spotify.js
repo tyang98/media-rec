@@ -1,7 +1,5 @@
 const clientId = '3860186b260d438ba9e591c673f3ed0e';
 const redirectUri = 'http://localhost:3000/';
-let accessToken;
-
 
 class Spotify {
   static async search(searchTerm, token) {
@@ -19,7 +17,8 @@ class Spotify {
           id: track.id,
           title: track.name,
           artist: track.artists[0].name,
-          album: track.album.name
+          album: track.album.name,
+          image: track.images[0]
         };
       });
     }
