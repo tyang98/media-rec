@@ -137,8 +137,10 @@ function SongsRec() {
             key={index}
             name={playlist.name}
           >
+            {console.log(playlist)}
+            <img src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></img>
 
-            <Badge className="mt-4">{playlist.name}</Badge>
+            <a href={playlist.playlisturl} target='_blank' rel='noopener noreferrer' className="badge badge-primary mt-4 mb-4">{playlist.name}</a>
             {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
               <Song
                 key={index}
