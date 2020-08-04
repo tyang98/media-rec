@@ -7,12 +7,8 @@ import queryString from 'query-string';
 
 function SongsRec() {
   // Set user data state with dummy data for now
-  const [user, setUser] = useState([]
-    // {
-    //   username: "user1",
-    //   name: "Henry William Yang",
-    // }
-  );
+  const [user, setUser] = useState([]);
+
   // Set liked songs
   const [likedSongs, setLikedSongs] = useState([
     { name: "Hotel California", artist: "The Eagles" },
@@ -21,34 +17,8 @@ function SongsRec() {
   ]);
 
   // Set dummy playlists with good songs though
-  const [playlists, setPlaylists] = useState([
-    {
-      name: "Playlist 1",
-      songs: [
-        { name: "Wonderwall", artist: "Oasis" },
-        { name: "Let Her Go", artist: "Passenger" },
-        { name: "Peace of Mind", artist: "Boston" },
-        { name: "Take Me Home, Country Rods", artist: "John Denver" }
-      ]
-    },
-    {
-      name: "Playlist 2",
-      songs: [
-        { name: "Enter Sandman", artist: "Metallica" },
-        { name: "Dream On", artist: "Aerosmith" },
-        { name: "Livin' on a Prayer", artist: "Bon Jovi" }
-      ]
-    },
-    {
-      name: "Playlist 3",
-      songs: [
-        { name: "Highway to Hell", artist: "AC/DC" },
-        { name: "I Want It That Way", artist: "Backstreet Boys" },
-        { name: "Sweet Home Alabama", artist: "Lynyrd Skynyrd" },
-        { name: "Californication", artist: "Red Hot Chili Peppers" }
-      ]
-    }
-  ])
+  const [playlists, setPlaylists] = useState([]);
+
   //Set selected songs with dummy data
   const [selectedSongs, setSelectedSongs] = useState([
     { name: "Stairway to Heaven", artist: "Led Zeppelin" },
@@ -64,7 +34,14 @@ function SongsRec() {
   useEffect(() => {
 
     let accessToken = queryString.parse(window.location.href.slice(32)).access_token
+    getUserInfo(accessToken);
+    getPlaylists(accessToken);
 
+
+  }, []
+  );
+
+  const getUserInfo = (accessToken =>
     fetch('https://api.spotify.com/v1/me', {
       headers: { 'Authorization': 'Bearer ' + accessToken }
     })
@@ -75,9 +52,64 @@ function SongsRec() {
         let id = data.id;
         setUser({ email, name, id })
       })
-
-  }, []
   );
+
+  function getPlaylists(accessToken) {
+    fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: { 'Authorization': 'Bearer ' + accessToken }
+    })
+      .then(response => response.json())
+      .then(playlistData => {
+        console.log(playlistData)
+        const playlistArr = playlistData.items.map(data => {
+          let name = data.name;
+          let id = data.id;
+          let playlisturl = data.external_urls.spotify;
+          let image = data.images[0];
+          return { name, id, playlisturl, image };
+        })
+        console.log(playlistArr)
+
+        let playlistTracks = playlistData.items.map(playlist => {
+          let links = fetch(playlist.tracks.href, {
+            headers: { 'Authorization': 'Bearer ' + accessToken }
+          })
+          let trackPromise = links.then(response => response.json())
+
+          return trackPromise;
+        })
+        Promise.all(playlistTracks)
+          .then(trackData => {
+            let tracksArr = trackData.map(playlist => playlist.items)
+            // console.log(tracksArr)
+            let playlistsTracks = tracksArr.map(playlist =>
+              playlist.map(item => {
+                let name = item.track.name;
+                let artists = item.track.artists;
+                let id = item.track.id;
+                return { name, artists, id };
+              })
+
+            )
+            // console.log(playlistsTracks)
+            let index = 0;
+            //Get rid of spread operator for info separate from tracks
+            let fullPlaylists = playlistArr.map(info => { return { ...info, tracksList: playlistsTracks[index++] } })
+            setPlaylists(fullPlaylists);
+          });
+      })
+
+
+  }
+
+
+
+
+
+
+
+
+
 
   return (
     <Container className="mt-5">
@@ -98,17 +130,18 @@ function SongsRec() {
 
       {/* Display user's playlists */}
       <ListGroup className="justify-content-md-center" horizontal>
-
         {playlists.map((playlist, index) => (
+
           <ListGroup
             className="col-md-5"
             key={index}
             name={playlist.name}
           >
+            {console.log(playlist)}
+            <img src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></img>
 
-            <Badge className="mt-4">{playlist.name}</Badge>
-
-            {playlist.songs.map((song, index) => (
+            <a href={playlist.playlisturl} target='_blank' rel='noopener noreferrer' className="badge badge-primary mt-4 mb-4">{playlist.name}</a>
+            {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
               <Song
                 key={index}
                 song={song}
@@ -119,6 +152,7 @@ function SongsRec() {
         ))}
       </ListGroup>
 
+      {/* Displays selected songs */}
       <Container className="mt-4">
         <SongsForm addSong={addSong} />
       </Container>
