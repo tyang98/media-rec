@@ -3,13 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SongsRec from './components/SongsRec.js';
 import Movies from './components/Movies.js';
 import { Button, Container } from 'react-bootstrap';
-
+import Spotify from './utils/Spotify.js'
 import {
   Route,
   HashRouter
 } from 'react-router-dom';
 import SearchBar from './components/SearchBar.js';
-
+import SongDisplay from './components/SongDisplay.js'
 
 
 
