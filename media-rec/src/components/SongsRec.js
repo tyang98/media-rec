@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup, Badge } from 'react-bootstrap';
+import { Container, ListGroup, Badge, Row, Col } from 'react-bootstrap';
 import SongsForm from './SongsForm.js';
 import queryString from 'query-string';
 
@@ -11,9 +11,9 @@ function SongsRec() {
 
   // Set liked songs
   const [likedSongs, setLikedSongs] = useState([
-    { name: "Hotel California", artist: "The Eagles" },
-    { name: "Nothing Else Matters", artist: "Metallica" },
-    { name: "More Than a Feeling", artist: "Boston" }
+    { name: "Hotel California", artists: [{ name: "The Eagles" }] },
+    { name: "Nothing Else Matters", artists: [{ name: "Metallica" }] },
+    { name: "More Than a Feeling", artists: [{ name: "Boston" }] }
   ]);
 
   // Set dummy playlists with good songs though
@@ -130,26 +130,28 @@ function SongsRec() {
 
       {/* Display user's playlists */}
       <ListGroup className="justify-content-md-center" horizontal>
-        {playlists.map((playlist, index) => (
+        <Row xs={3} md={3} lg={3}>
+          {playlists.map((playlist, index) => (
 
-          <ListGroup
-            className="col-md-5"
-            key={index}
-            name={playlist.name}
-          >
-            {console.log(playlist)}
-            <img src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></img>
+            <ListGroup
+              className="col-md-5 mt-4"
+              key={index}
+              name={playlist.name}
+            >
+              {/* {console.log(playlist)} */}
+              <img src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></img>
 
-            <a href={playlist.playlisturl} target='_blank' rel='noopener noreferrer' className="badge badge-primary mt-4 mb-4">{playlist.name}</a>
-            {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
-              <Song
-                key={index}
-                song={song}
-              />
-            ))}
-          </ListGroup>
+              <a href={playlist.playlisturl} target='_blank' rel='noopener noreferrer' className="badge badge-primary mt-4 mb-4">{playlist.name}</a>
+              {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
+                <Song
+                  key={index}
+                  song={song}
+                />
+              ))}
+            </ListGroup>
 
-        ))}
+          ))}
+        </Row>
       </ListGroup>
 
       {/* Displays selected songs */}
@@ -171,7 +173,8 @@ function SongsRec() {
 }
 
 function Song({ key, song }) {
-  return <ListGroup.Item>{key} {song.name}, {song.artist}</ListGroup.Item>
+  return <ListGroup.Item>{key} {song.name},<br></br>
+    {song.artists == null ? "None" : song.artists.map((artist, index) => artist.name + (index === song.artists.length - 1 ? "" : ", "))} </ListGroup.Item>
 
 }
 
