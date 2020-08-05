@@ -2,13 +2,12 @@ import React from 'react';
 import Song from './Song.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ListGroup } from 'react-bootstrap';
-import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
-
-function SongDisplay({ songs, addSong }) {
+function Playlist({ songs, removeSong }) {
   return (
-    <div className="SongDisplay">
-      <h2>Songs</h2>
+    <div className="Playlist">
+      <h2>Selected Songs</h2>
       <ListGroup >
         {
           songs.map(song => {
@@ -17,8 +16,8 @@ function SongDisplay({ songs, addSong }) {
               <Song
                 key={song.id}
                 song={song}
-                addSong={addSong}
-                symbol={<AddIcon />}
+                removeSong={removeSong}
+                symbol={<RemoveIcon />}
               />)
           })
         }
@@ -27,4 +26,4 @@ function SongDisplay({ songs, addSong }) {
   )
 }
 
-export default SongDisplay;
+export default Playlist
