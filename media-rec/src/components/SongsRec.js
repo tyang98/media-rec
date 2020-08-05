@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup, Badge, Row, Image } from 'react-bootstrap';
+import { Container, ListGroup, Row, Image } from 'react-bootstrap';
 import queryString from 'query-string';
 import Spotify from './../utils/Spotify.js'
 import SearchBar from './SearchBar.js';
@@ -11,21 +11,12 @@ import SongDisplay from './SongDisplay.js';
 import Song from './Song.js';
 
 function SongsRec() {
-  // Set user data state with dummy data for now
+
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [searchedSongs, setSearchedSongs] = useState([]);
   const [selectedSongs, setSelectedSongs] = useState([]);
   const [user, setUser] = useState([]);
 
-
-  // Set liked songs
-  const [likedSongs, setLikedSongs] = useState([
-    // { name: "Hotel California", artists: [{ name: "The Eagles" }], id: "1", songurl: "url", imageurl: "url" },
-    // { name: "Nothing Else Matters", artists: [{ name: "Metallica" }], id: "1", songurl: "url", imageurl: "url" },
-    // { name: "More Than a Feeling", artists: [{ name: "Boston" }], id: "1", songurl: "url", imageurl: "url" }
-  ]);
-
-  // Set dummy playlists with good songs though
   const [playlists, setPlaylists] = useState([]);
 
 
@@ -100,7 +91,6 @@ function SongsRec() {
         Promise.all(playlistTracks)
           .then(trackData => {
             let tracksArr = trackData.map(playlist => playlist.items)
-            // console.log(tracksArr)
             let playlistsTracks = tracksArr.map(playlist =>
               playlist.map(item => {
 
@@ -113,7 +103,6 @@ function SongsRec() {
               })
 
             )
-            // console.log(playlistsTracks)
             let index = 0;
             //Get rid of spread operator for info separate from tracks
             let fullPlaylists = playlistArr.map(info => { return { ...info, tracksList: playlistsTracks[index++] } })
@@ -126,22 +115,8 @@ function SongsRec() {
 
   return (
     <Container className="mt-5">
-      <h1>Hello, <b>{user.name}</b> </h1>
-
-      {/* Display user's liked songs */}
-      <Container>
-        <Badge className="mt-4">Current list of liked songs</Badge>
-        <ListGroup >
-          {likedSongs.map((song, index) => (
-            <Song
-              key={index}
-              song={song}
-              addSong={addSong}
-              removeSong={removeSong}
-            />
-          ))}
-        </ListGroup>
-      </Container>
+      <h1>Hello, <b>{user.name}, </b> </h1>
+      <h3>We found {playlists.length} playlists</h3>
 
       {/* Display user's playlists */}
       <ListGroup className="justify-content-md-center" horizontal>
@@ -152,9 +127,8 @@ function SongsRec() {
               className="col-md-6 mt-4"
               key={index}
               name={playlist.name}
-
             >
-              {/* {console.log(playlist)} */}
+
               <Image src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></Image>
 
               <a href={playlist.playlisturl}
@@ -178,8 +152,6 @@ function SongsRec() {
           ))}
         </Row>
       </ListGroup>
-
-      {/* Put search bar here */}
       <Container className='mt-5'>
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
