@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ListGroup } from 'react-bootstrap';
 import AddIcon from '@material-ui/icons/Add';
 
-
 function SongDisplay({ songs, addSong }) {
   return (
     <div className="SongDisplay">

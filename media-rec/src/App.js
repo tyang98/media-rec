@@ -22,7 +22,7 @@ function App() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/songs">Songs</Nav.Link>
+            <Nav.Link onClick={handleLogIn}>Songs</Nav.Link>
             <Nav.Link href="/movies">Movies</Nav.Link>
           </Nav>
           <Form inline>

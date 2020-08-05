@@ -19,9 +19,9 @@ function SongsRec() {
 
   // Set liked songs
   const [likedSongs, setLikedSongs] = useState([
-    { name: "Hotel California", artists: [{ name: "The Eagles" }], id: "1", songurl: "url", imageurl: "url" },
-    { name: "Nothing Else Matters", artists: [{ name: "Metallica" }], id: "1", songurl: "url", imageurl: "url" },
-    { name: "More Than a Feeling", artists: [{ name: "Boston" }], id: "1", songurl: "url", imageurl: "url" }
+    // { name: "Hotel California", artists: [{ name: "The Eagles" }], id: "1", songurl: "url", imageurl: "url" },
+    // { name: "Nothing Else Matters", artists: [{ name: "Metallica" }], id: "1", songurl: "url", imageurl: "url" },
+    // { name: "More Than a Feeling", artists: [{ name: "Boston" }], id: "1", songurl: "url", imageurl: "url" }
   ]);
 
   // Set dummy playlists with good songs though
@@ -29,9 +29,9 @@ function SongsRec() {
 
   //Set selected songs with dummy data
   const [selectedSongs, setSelectedSongs] = useState([
-    { name: "Stairway to Heaven", artist: [{ name: "Led Zeppelin" }], id: "1", songurl: "url", imageurl: "url" },
-    { name: "Smoke On the Water", artist: [{ name: "Deep Purple" }], id: "1", songurl: "url", imageurl: "url" },
-    { name: "Africa", artist: [{ name: "Toto" }], id: "1", songurl: "url", imageurl: "url" }
+    // { name: "Stairway to Heaven", artist: [{ name: "Led Zeppelin" }], id: "1", songurl: "url", imageurl: "url" },
+    // { name: "Smoke On the Water", artist: [{ name: "Deep Purple" }], id: "1", songurl: "url", imageurl: "url" },
+    // { name: "Africa", artist: [{ name: "Toto" }], id: "1", songurl: "url", imageurl: "url" }
   ]);
 
   const addSong = (name, artist) => {
