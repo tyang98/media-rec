@@ -187,7 +187,7 @@ function SongsRec() {
         {console.log(searchedSongs)}
       </Container>
       <Container className='mt-5'>
-        <SongDisplay songs={searchedSongs} />
+        <SongDisplay songs={searchedSongs} addSongToPlaylist={addSongToPlaylist} />
       </Container>
 
       {/* Displays selected songs */}
