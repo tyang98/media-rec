@@ -127,6 +127,7 @@ function SongsRec() {
               className="col-md-6 mt-4"
               key={index}
               name={playlist.name}
+
             >
 
               <Image src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></Image>
@@ -138,15 +139,17 @@ function SongsRec() {
               >
                 {playlist.name}
               </a>
-              {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
-                <Song
-                  key={index}
-                  song={song}
-                  addSong={addSong}
-                  removeSong={removeSong}
-                  symbol={<AddIcon />}
-                />
-              ))}
+              <Container className="overflow-auto" style={{ maxHeight: '1500px' }}>
+                {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
+                  <Song
+                    key={index}
+                    song={song}
+                    addSong={addSong}
+                    removeSong={removeSong}
+                    symbol={<AddIcon />}
+                  />
+                ))}
+              </Container>
             </ListGroup>
 
           ))}
