@@ -16,7 +16,7 @@ class Spotify {
         let name = track.name;
         let artists = track.artists;
         let id = track.id;
-        let imageurl = track.album.images[0].url;
+        let imageurl = track.album.images == null ? "none" : track.album.images[0].url;
         let songurl = track.external_urls.spotify;
         return { name, artists, id, imageurl, songurl };
       });

@@ -3,7 +3,7 @@ import Song from './Song.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ListGroup } from 'react-bootstrap';
 
-function SongDisplay({ songs, addSongToPlaylist }) {
+function SongDisplay({ songs, addSong, removeSong }) {
   return (
     <div className="SongDisplay">
       <h2>Songs</h2>
@@ -15,7 +15,8 @@ function SongDisplay({ songs, addSongToPlaylist }) {
               <Song
                 key={song.id}
                 song={song}
-                addSongToPlaylist={addSongToPlaylist}
+                addSong={addSong}
+                removeSong={removeSong}
               />)
           })
         }

@@ -19,9 +19,9 @@ function SongsRec() {
 
   // Set liked songs
   const [likedSongs, setLikedSongs] = useState([
-    { name: "Hotel California", artists: [{ name: "The Eagles" }] },
-    { name: "Nothing Else Matters", artists: [{ name: "Metallica" }] },
-    { name: "More Than a Feeling", artists: [{ name: "Boston" }] }
+    { name: "Hotel California", artists: [{ name: "The Eagles" }], id: "1", songurl: "url", imageurl: "url" },
+    { name: "Nothing Else Matters", artists: [{ name: "Metallica" }], id: "1", songurl: "url", imageurl: "url" },
+    { name: "More Than a Feeling", artists: [{ name: "Boston" }], id: "1", songurl: "url", imageurl: "url" }
   ]);
 
   // Set dummy playlists with good songs though
@@ -29,9 +29,9 @@ function SongsRec() {
 
   //Set selected songs with dummy data
   const [selectedSongs, setSelectedSongs] = useState([
-    { name: "Stairway to Heaven", artist: [{ name: "Led Zeppelin" }] },
-    { name: "Smoke On the Water", artist: [{ name: "Deep Purple" }] },
-    { name: "Africa", artist: [{ name: "Toto" }] }
+    { name: "Stairway to Heaven", artist: [{ name: "Led Zeppelin" }], id: "1", songurl: "url", imageurl: "url" },
+    { name: "Smoke On the Water", artist: [{ name: "Deep Purple" }], id: "1", songurl: "url", imageurl: "url" },
+    { name: "Africa", artist: [{ name: "Toto" }], id: "1", songurl: "url", imageurl: "url" }
   ]);
 
   const addSong = (name, artist) => {
@@ -66,6 +66,10 @@ function SongsRec() {
     });
   }
 
+  const removeSongFromPlaylist = (song) => {
+    setPlaylistSongs((playlistSongs) =>
+      playlistSongs.filter((t) => song !== t));
+  }
 
   const getUserInfo = (accessToken =>
     fetch('https://api.spotify.com/v1/me', {
@@ -143,6 +147,7 @@ function SongsRec() {
             <Song
               key={index}
               song={song}
+              addSong={addSongToPlaylist}
             />
           ))}
         </ListGroup>
@@ -154,7 +159,7 @@ function SongsRec() {
           {playlists.map((playlist, index) => (
 
             <ListGroup
-              className="col-md-5 mt-4"
+              className="col-md-6 mt-4"
               key={index}
               name={playlist.name}
 
@@ -173,6 +178,7 @@ function SongsRec() {
                 <Song
                   key={index}
                   song={song}
+                  addSong={addSongToPlaylist}
                 />
               ))}
             </ListGroup>
@@ -187,15 +193,15 @@ function SongsRec() {
         {console.log(searchedSongs)}
       </Container>
       <Container className='mt-5'>
-        <SongDisplay songs={searchedSongs} addSongToPlaylist={addSongToPlaylist} />
+        <SongDisplay songs={searchedSongs} addSong={addSongToPlaylist} />
       </Container>
 
       {/* Displays selected songs */}
-      <Container className="mt-4">
+      {/* <Container className="mt-4">
         <SongsForm addSong={addSong} />
-      </Container>
+      </Container> */}
       <Badge className="mt-4">Current list of selected songs</Badge>
-      <SongDisplay songs={selectedSongs} />
+      <SongDisplay songs={playlistSongs} removeSong={removeSongFromPlaylist} />
 
     </Container>
   );
