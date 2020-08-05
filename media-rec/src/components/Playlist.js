@@ -4,18 +4,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ListGroup } from 'react-bootstrap';
 import RemoveIcon from '@material-ui/icons/Remove';
 
-function Playlist({ songs, removeSong }) {
+function Playlist({ songs, addSong, removeSong }) {
   return (
     <div className="Playlist">
       <h2>Selected Songs</h2>
+      {console.log(songs)}
       <ListGroup >
         {
           songs.map(song => {
-            console.log(song)
             return (
               <Song
                 key={song.id}
                 song={song}
+                addSong={addSong}
                 removeSong={removeSong}
                 symbol={<RemoveIcon />}
               />)

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, ListGroup, Badge, Row, Image } from 'react-bootstrap';
-import SongsForm from './SongsForm.js';
 import queryString from 'query-string';
 import Spotify from './../utils/Spotify.js'
 import SearchBar from './SearchBar.js';
+import Playlist from './Playlist.js';
+import AddIcon from '@material-ui/icons/Add';
 
 import SongDisplay from './SongDisplay.js';
 import Song from './Song.js';
@@ -27,17 +28,6 @@ function SongsRec() {
   // Set dummy playlists with good songs though
   const [playlists, setPlaylists] = useState([]);
 
-  //Set selected songs with dummy data
-  const [selectedSongs, setSelectedSongs] = useState([
-    // { name: "Stairway to Heaven", artist: [{ name: "Led Zeppelin" }], id: "1", songurl: "url", imageurl: "url" },
-    // { name: "Smoke On the Water", artist: [{ name: "Deep Purple" }], id: "1", songurl: "url", imageurl: "url" },
-    // { name: "Africa", artist: [{ name: "Toto" }], id: "1", songurl: "url", imageurl: "url" }
-  ]);
-
-  const addSong = (name, artist) => {
-    const newSongs = [...selectedSongs, { name, artist }];
-    setSelectedSongs(newSongs)
-  };
 
   useEffect(() => {
 
@@ -67,8 +57,7 @@ function SongsRec() {
   }
 
   const removeSongFromPlaylist = (song) => {
-    setPlaylistSongs((playlistSongs) =>
-      playlistSongs.filter((t) => song !== t));
+    setPlaylistSongs(playlistSongs.filter((t) => song.name !== t.name));
   }
 
   const getUserInfo = (accessToken =>
@@ -148,6 +137,7 @@ function SongsRec() {
               key={index}
               song={song}
               addSong={addSongToPlaylist}
+              removeSong={removeSongFromPlaylist}
             />
           ))}
         </ListGroup>
@@ -179,6 +169,8 @@ function SongsRec() {
                   key={index}
                   song={song}
                   addSong={addSongToPlaylist}
+                  removeSong={removeSongFromPlaylist}
+                  symbol={<AddIcon />}
                 />
               ))}
             </ListGroup>
@@ -190,18 +182,14 @@ function SongsRec() {
       {/* Put search bar here */}
       <Container className='mt-5'>
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
-        {console.log(searchedSongs)}
+
       </Container>
       <Container className='mt-5'>
-        <SongDisplay songs={searchedSongs} addSong={addSongToPlaylist} />
+        <SongDisplay songs={searchedSongs} addSong={addSongToPlaylist} removeSong={removeSongFromPlaylist} />
       </Container>
 
-      {/* Displays selected songs */}
-      {/* <Container className="mt-4">
-        <SongsForm addSong={addSong} />
-      </Container> */}
       <Badge className="mt-4">Current list of selected songs</Badge>
-      <SongDisplay songs={playlistSongs} removeSong={removeSongFromPlaylist} />
+      <Playlist songs={playlistSongs} addSong={addSongToPlaylist} removeSong={removeSongFromPlaylist} />
 
     </Container>
   );
