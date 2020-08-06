@@ -15,7 +15,11 @@ function SearchBar({ token, searchSpotify }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="searchBar" style={{ fontSize: 20, borderColor: 'black', borderRadius: 20 }}>
+    <Form onSubmit={handleSubmit}
+      className="searchBar"
+      style={{
+        fontSize: 25, borderColor: 'black', borderRadius: 20
+      }}>
       <input
         onChange={e => setSearchTerm(e.target.value)}
         className="input"

@@ -21,15 +21,11 @@ function SongsRec() {
 
 
   useEffect(() => {
-
     let accessToken = queryString.parse(window.location.href.slice(32)).access_token
     getUserInfo(accessToken);
     getPlaylists(accessToken);
     setSpotifyToken(accessToken);
-
-
-  }, []
-  );
+  }, []);
 
   async function searchSpotify(terms) {
     const results = await Spotify.search(terms, spotifyToken);
@@ -169,7 +165,5 @@ function SongsRec() {
     </Container>
   );
 }
-
-
 
 export default SongsRec;
