@@ -7,9 +7,11 @@ app = Flask(__name__)
 def make_song_recommendation():
     try:
         data = request.get_json()
-        tracks = data['tracks'] # FIXME (track ids key)
+        tracks = data['tracks'] 
+        if(len(tracks) < 5):
+            return { 'tracks' : tracks }
         recommended_tracks = Recommender.make_recommendation(tracks)
-        return { 'tracks' : recommended_tracks } # TODO (recommened track keys)
+        return { 'tracks' : recommended_tracks }
     except:
         return { 'message' : 'There was an issue generating recommended tracks' }, 500
     

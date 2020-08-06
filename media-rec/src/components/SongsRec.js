@@ -34,8 +34,8 @@ function SongsRec() {
   }
 
   async function getRecommended() {
-    const results = await Spotify.getRecommended(selectedSongs)
-    setRecommendedSongs(results);
+    const recSongs = await Spotify.getRecommended(selectedSongs, spotifyToken);
+    setRecommendedSongs(recSongs);
   }
 
   const addSong = (song) => {
@@ -116,13 +116,13 @@ function SongsRec() {
   }
 
   return (
-    <Container className="mt-5">
+    <Container className="">
       <h1>Hello, <b>{user.name}, </b> </h1>
       <h3>We found {playlists.length} playlists</h3>
 
       {/* Display user's playlists */}
       <ListGroup className="justify-content-md-center" horizontal>
-        <Row xs={3} md={3} lg={3} >
+        <Row xs={3} md={2} lg={2} >
           {playlists.map((playlist, index) => (
 
             <ListGroup
@@ -157,7 +157,7 @@ function SongsRec() {
           ))}
         </Row>
       </ListGroup>
-      <Container className='mt-5'>
+      <Container >
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
       </Container>
@@ -168,6 +168,7 @@ function SongsRec() {
       <h2 className="mt-4">Current list of selected songs</h2>
       <Container className='mt-5'>
         <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
+
         <Button type="submit" onClick={getRecommended}>Submit</Button>
       </Container>
 
@@ -176,8 +177,6 @@ function SongsRec() {
         <SongDisplay songs={recommendedSongs} />
       </Container>
     </Container>
-
-
   );
 }
 

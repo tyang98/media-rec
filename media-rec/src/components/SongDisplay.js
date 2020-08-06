@@ -9,16 +9,17 @@ function SongDisplay({ songs, addSong, removeSong, symbol }) {
 
       <ListGroup >
         {
-          songs.map(song => {
-            return (
-              <Song
-                key={song.id}
-                song={song}
-                addSong={addSong}
-                removeSong={removeSong}
-                symbol={symbol}
-              />)
-          })
+          !songs ? <div></div> :
+            songs.map(song => {
+              return (
+                <Song
+                  key={song.id}
+                  song={song}
+                  addSong={addSong}
+                  removeSong={removeSong}
+                  symbol={symbol}
+                />)
+            })
         }
       </ListGroup>
     </div>
