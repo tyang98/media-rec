@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup, Row, Image } from 'react-bootstrap';
+import { Container, ListGroup, Row, Image, Button } from 'react-bootstrap';
 import queryString from 'query-string';
 import Spotify from './../utils/Spotify.js'
 import SearchBar from './SearchBar.js';
@@ -15,6 +15,7 @@ function SongsRec() {
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [searchedSongs, setSearchedSongs] = useState([]);
   const [selectedSongs, setSelectedSongs] = useState([]);
+  const [recommendedSongs, setRecommendedSongs] = useState([]);
   const [user, setUser] = useState([]);
 
   const [playlists, setPlaylists] = useState([]);
@@ -30,6 +31,11 @@ function SongsRec() {
   async function searchSpotify(terms) {
     const results = await Spotify.search(terms, spotifyToken);
     setSearchedSongs(results);
+  }
+
+  async function getRecommended() {
+    const results = await Spotify.getRecommended(selectedSongs)
+    setRecommendedSongs(results);
   }
 
   const addSong = (song) => {
@@ -160,9 +166,18 @@ function SongsRec() {
       </Container>
 
       <h2 className="mt-4">Current list of selected songs</h2>
-      <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
+      <Container className='mt-5'>
+        <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
+        <Button type="submit" onClick={getRecommended}>Submit</Button>
+      </Container>
 
+      <h2 className="mt-4">List of Recommended Songs</h2>
+      <Container className='mt-5'>
+        <SongDisplay songs={recommendedSongs} />
+      </Container>
     </Container>
+
+
   );
 }
 

@@ -1,27 +1,26 @@
-from dotenv import load_dotenv 
-load_dotenv()
-
 from flask import Flask, request
 from recommender import Recommender
 
-
-
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
-
 
 @app.route('/', methods = ['POST'])
 def make_song_recommendation():
     try:
-        # data = request.args.get('ids')
         data = request.get_json()
-        tracks = data['tracks'] # FIXME
-        # return { "tracks" : tracks }
+        tracks = data['tracks'] # FIXME (track ids key)
         recommended_tracks = Recommender.make_recommendation(tracks)
-        return { 'tracks' : recommended_tracks }
+        return { 'tracks' : recommended_tracks } # TODO (recommened track keys)
     except:
-        return { 'message' : 'There was an issue with generating recommended tracks' }, 500
+        return { 'message' : 'There was an issue generating recommended tracks' }, 500
     
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    response.headers['Access-Control-Allow-Credentials'] = 'false'
+    return response
 
 
 if(__name__ == '__main__'):
