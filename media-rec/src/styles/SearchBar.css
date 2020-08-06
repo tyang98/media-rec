@@ -1,4 +1,4 @@
-.SearchBar input {
+.input {
   width: 40%;
   padding: 10px 20px;
   border-style: solid;
@@ -9,6 +9,9 @@
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-self: center;
   width: 40%;
   margin-top: 10px;
   background-color: lightblue;
@@ -18,4 +21,7 @@
   text-decoration: none;
   cursor: pointer;
   margin-left: 5px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
 }

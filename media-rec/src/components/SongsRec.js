@@ -1,71 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup, Badge, Row, Image } from 'react-bootstrap';
-import SongsForm from './SongsForm.js';
+import { Container, ListGroup, Row, Image } from 'react-bootstrap';
 import queryString from 'query-string';
 import Spotify from './../utils/Spotify.js'
 import SearchBar from './SearchBar.js';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 import SongDisplay from './SongDisplay.js';
 import Song from './Song.js';
 
 function SongsRec() {
-  // Set user data state with dummy data for now
+
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [searchedSongs, setSearchedSongs] = useState([]);
-  const [playlistSongs, setPlaylistSongs] = useState([]);
+  const [selectedSongs, setSelectedSongs] = useState([]);
   const [user, setUser] = useState([]);
 
-
-  // Set liked songs
-  const [likedSongs, setLikedSongs] = useState([
-    { name: "Hotel California", artists: [{ name: "The Eagles" }] },
-    { name: "Nothing Else Matters", artists: [{ name: "Metallica" }] },
-    { name: "More Than a Feeling", artists: [{ name: "Boston" }] }
-  ]);
-
-  // Set dummy playlists with good songs though
   const [playlists, setPlaylists] = useState([]);
 
-  //Set selected songs with dummy data
-  const [selectedSongs, setSelectedSongs] = useState([
-    { name: "Stairway to Heaven", artist: [{ name: "Led Zeppelin" }] },
-    { name: "Smoke On the Water", artist: [{ name: "Deep Purple" }] },
-    { name: "Africa", artist: [{ name: "Toto" }] }
-  ]);
-
-  const addSong = (name, artist) => {
-    const newSongs = [...selectedSongs, { name, artist }];
-    setSelectedSongs(newSongs)
-  };
 
   useEffect(() => {
-
     let accessToken = queryString.parse(window.location.href.slice(32)).access_token
     getUserInfo(accessToken);
     getPlaylists(accessToken);
     setSpotifyToken(accessToken);
-
-
-  }, []
-  );
+  }, []);
 
   async function searchSpotify(terms) {
     const results = await Spotify.search(terms, spotifyToken);
     setSearchedSongs(results);
   }
 
-  const addSongToPlaylist = (song) => {
-    setPlaylistSongs(playlistSongs => {
-      if (playlistSongs.includes(song)) {
-        return playlistSongs;
+  const addSong = (song) => {
+    setSelectedSongs(selectedSongs => {
+      if (selectedSongs.includes(song)) {
+        return selectedSongs;
       }
       else {
-        return [...playlistSongs, song];
+        return [...selectedSongs, song];
       }
     });
   }
 
+  const removeSong = (song) => {
+    setSelectedSongs(selectedSongs.filter((t) => song.name !== t.name));
+  }
 
   const getUserInfo = (accessToken =>
     fetch('https://api.spotify.com/v1/me', {
@@ -107,7 +87,6 @@ function SongsRec() {
         Promise.all(playlistTracks)
           .then(trackData => {
             let tracksArr = trackData.map(playlist => playlist.items)
-            // console.log(tracksArr)
             let playlistsTracks = tracksArr.map(playlist =>
               playlist.map(item => {
 
@@ -120,7 +99,6 @@ function SongsRec() {
               })
 
             )
-            // console.log(playlistsTracks)
             let index = 0;
             //Get rid of spread operator for info separate from tracks
             let fullPlaylists = playlistArr.map(info => { return { ...info, tracksList: playlistsTracks[index++] } })
@@ -133,20 +111,8 @@ function SongsRec() {
 
   return (
     <Container className="mt-5">
-      <h1>Hello, <b>{user.name}</b> </h1>
-
-      {/* Display user's liked songs */}
-      <Container>
-        <Badge className="mt-4">Current list of liked songs</Badge>
-        <ListGroup >
-          {likedSongs.map((song, index) => (
-            <Song
-              key={index}
-              song={song}
-            />
-          ))}
-        </ListGroup>
-      </Container>
+      <h1>Hello, <b>{user.name}, </b> </h1>
+      <h3>We found {playlists.length} playlists</h3>
 
       {/* Display user's playlists */}
       <ListGroup className="justify-content-md-center" horizontal>
@@ -154,12 +120,12 @@ function SongsRec() {
           {playlists.map((playlist, index) => (
 
             <ListGroup
-              className="col-md-5 mt-4"
+              className="col-md-6 mt-4"
               key={index}
               name={playlist.name}
 
             >
-              {/* {console.log(playlist)} */}
+
               <Image src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></Image>
 
               <a href={playlist.playlisturl}
@@ -169,38 +135,35 @@ function SongsRec() {
               >
                 {playlist.name}
               </a>
-              {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
-                <Song
-                  key={index}
-                  song={song}
-                />
-              ))}
+              <Container className="overflow-auto" style={{ maxHeight: '1500px' }}>
+                {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
+                  <Song
+                    key={index}
+                    song={song}
+                    addSong={addSong}
+                    removeSong={removeSong}
+                    symbol={<AddIcon />}
+                  />
+                ))}
+              </Container>
             </ListGroup>
 
           ))}
         </Row>
       </ListGroup>
-
-      {/* Put search bar here */}
       <Container className='mt-5'>
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
-        {console.log(searchedSongs)}
+
       </Container>
       <Container className='mt-5'>
-        <SongDisplay songs={searchedSongs} addSongToPlaylist={addSongToPlaylist} />
+        <SongDisplay songs={searchedSongs} addSong={addSong} removeSong={removeSong} symbol={<AddIcon />} />
       </Container>
 
-      {/* Displays selected songs */}
-      <Container className="mt-4">
-        <SongsForm addSong={addSong} />
-      </Container>
-      <Badge className="mt-4">Current list of selected songs</Badge>
-      <SongDisplay songs={selectedSongs} />
+      <h2 className="mt-4">Current list of selected songs</h2>
+      <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
 
     </Container>
   );
 }
-
-
 
 export default SongsRec;
