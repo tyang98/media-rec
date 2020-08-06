@@ -169,11 +169,12 @@ function SongsRec() {
       <Container className='mt-5'>
         <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
 
-        <Button type="submit" onClick={getRecommended}>Submit</Button>
+        <Button type="submit" onClick={getRecommended} className="button">Submit</Button>
       </Container>
 
       <h2 className="mt-4">List of Recommended Songs</h2>
-      <Container className='mt-5'>
+      <br></br>
+      <Container className='mt-5' className="overflow-auto" style={{ maxHeight: '1500px' }}>
         <SongDisplay songs={recommendedSongs} />
       </Container>
     </Container>
