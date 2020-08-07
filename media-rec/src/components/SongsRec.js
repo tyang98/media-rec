@@ -6,6 +6,7 @@ import Spotify from './../utils/Spotify.js'
 import SearchBar from './SearchBar.js';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import Submit from './Submit.js';
 
 import SongDisplay from './SongDisplay.js';
 import Song from './Song.js';
@@ -36,6 +37,12 @@ function SongsRec() {
   async function getRecommended() {
     const recSongs = await Spotify.getRecommended(selectedSongs, spotifyToken);
     setRecommendedSongs(recSongs);
+  }
+
+  async function createPlaylist(title) {
+    const songIds = recommendedSongs.map(song => song.id);
+    await Spotify.createPlaylist(title, songIds, spotifyToken);
+    setRecommendedSongs([]);
   }
 
   const addSong = (song) => {
@@ -157,6 +164,7 @@ function SongsRec() {
           ))}
         </Row>
       </ListGroup>
+      <br></br>
       <Container >
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
@@ -177,7 +185,12 @@ function SongsRec() {
       <Container className='mt-5' className="overflow-auto" style={{ maxHeight: '1500px' }}>
         <SongDisplay songs={recommendedSongs} />
       </Container>
+      <br></br>
+      <Container className='mt-5'>
+        <Submit />
+      </Container>
     </Container>
+
   );
 }
 

@@ -40,7 +40,6 @@ class Spotify {
     };
 
     try {
-
       const response = await fetch('http://localhost:5000/', requestOptions);
       const jsonResponse = await response.json();
       if (!jsonResponse.tracks) {
@@ -76,17 +75,36 @@ class Spotify {
     }
   }
 
-  static async getTrackInfo(id, token) {
-    let url = `https://api.spotify.com/v1/tracks/${id}`
-    let data = await fetch(url, {
-      headers: {
-        'Authorization': 'Bearer ' + token
+  static async createPlaylist(name, songsIds, token) {
+    if (Array.isArray(songsIds) && songsIds.length) {
+      const createPlaylistUrl = `https://api.spotify.com/v1/me/playlists`
+      const response = await fetch(createPlaylistUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          name: name,
+          public: true
+        })
+      });
+      const jsonResponse = await response.json();
+      const playlistId = jsonResponse.id;
+      if (playlistId) {
+        const replacePlaylistTracksUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+        await fetch(replacePlaylistTracksUrl, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ uris: songsIds.map(id => "spotify:track:".concat(id)) })
+        });
       }
-    })
-      .then(response => response.json())
-
-    return data
+    }
   }
+
 }
 
 export default Spotify;
