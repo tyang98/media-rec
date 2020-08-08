@@ -187,7 +187,7 @@ function SongsRec() {
       </Container>
       <br></br>
       <Container className='mt-5'>
-        <Submit />
+        <Submit createPlaylist={createPlaylist} />
       </Container>
     </Container>
 

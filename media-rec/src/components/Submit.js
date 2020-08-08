@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 function Submit({ createPlaylist }) {
   const [show, setShow] = useState(false);
@@ -21,17 +21,19 @@ function Submit({ createPlaylist }) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add to Your Playlists</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Modal.Title>Enter Title of Playlist</Modal.Title>
-          <input
-            onChange={e => setTerm(e)}
-            className="input"
-            placeholder="Enter Name"
-            value={term}
-          >
-          </input>
+          <Form onSubmit={handleSubmit} className="form">
+            <input
+              onChange={e => setTerm(e.target.value)}
+              className="input"
+              placeholder="Enter Name"
+              value={term}
+            >
+            </input>
+          </Form>
         </Modal.Body>
 
         <Modal.Footer>
