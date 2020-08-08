@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, request
 from recommender import Recommender
 
@@ -7,7 +10,7 @@ app = Flask(__name__)
 def make_song_recommendation():
     try:
         data = request.get_json()
-        tracks = data['tracks'] 
+        tracks = data['tracks']
         if(len(tracks) < 5):
             return { 'tracks' : tracks }
         recommended_tracks = Recommender.make_recommendation(tracks)
