@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, ListGroup, Row, Image, Button } from 'react-bootstrap';
 import queryString from 'query-string';
-import Spotify from './../utils/Spotify.js'
+import Spotify from './../utils/Spotify.js';
 import SearchBar from './SearchBar.js';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Submit from './Submit.js';
-
+import PlaylistDisplay from './PlaylistDisplay.js';
 import SongDisplay from './SongDisplay.js';
 import Song from './Song.js';
 
@@ -125,47 +125,10 @@ function SongsRec() {
   return (
     <Container className="">
       <h1>Hello, <b>{user.name}, </b> </h1>
-      <h3>We found {playlists.length} playlists</h3>
 
-      {/* Display user's playlists */}
-      <ListGroup className="justify-content-md-center" horizontal>
-        <Row xs={3} md={2} lg={2} >
-          {playlists.map((playlist, index) => (
-
-            <ListGroup
-              className="col-md-6 mt-4"
-              key={index}
-              name={playlist.name}
-
-            >
-
-              <Image src={playlist.image.url} style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt='none'></Image>
-
-              <a href={playlist.playlisturl}
-                target='_blank'
-                rel='noopener noreferrer'
-                className="badge badge-primary mt-4 mb-4"
-              >
-                {playlist.name}
-              </a>
-              <Container className="overflow-auto" style={{ maxHeight: '1500px' }}>
-                {playlist.tracksList == null ? <div></div> : playlist.tracksList.map((song, index) => (
-                  <Song
-                    key={index}
-                    song={song}
-                    addSong={addSong}
-                    removeSong={removeSong}
-                    symbol={<AddIcon />}
-                  />
-                ))}
-              </Container>
-            </ListGroup>
-
-          ))}
-        </Row>
-      </ListGroup>
       <br></br>
-      <Container >
+      <h2 className="mt-4">Search Songs</h2>
+      <Container className='mt-5'>
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
       </Container>
@@ -188,6 +151,57 @@ function SongsRec() {
       <br></br>
       <Container className='mt-5'>
         <Submit createPlaylist={createPlaylist} />
+      </Container>
+
+      <Container className='mt-5'>
+        {/* need to take into account to not display empty playlists*/}
+        <PlaylistDisplay
+          numberOfPlaylists={playlists.length}
+          playlists={
+            <ListGroup className="justify-content-md-center" horizontal>
+              <Row xs={3} md={2} lg={2}>
+                {playlists.map((playlist, index) => (
+                  <ListGroup className="col-md-6 mt-4" key={index} name={playlist.name}>
+                    <Image
+                      src={playlist.image.url}
+                      style={{
+                        width: "75%",
+                        display: "block",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                      alt="none"
+                    ></Image>
+
+                    <a
+                      href={playlist.playlisturl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="badge badge-primary mt-4 mb-4"
+                    >
+                      {playlist.name}
+                    </a>
+                    <Container className="overflow-auto" style={{ maxHeight: "1500px" }}>
+                      {playlist.tracksList == null && playlist.tracksList.length !== 0 ? (
+                        <div></div>
+                      ) : (
+                          playlist.tracksList.map((song, index) => (
+                            <Song
+                              key={index}
+                              song={song}
+                              addSong={addSong}
+                              removeSong={removeSong}
+                              symbol={<AddIcon />}
+                            />
+                          ))
+                        )}
+                    </Container>
+                  </ListGroup>
+                ))}
+              </Row>
+            </ListGroup>
+          }
+        />
       </Container>
     </Container>
 

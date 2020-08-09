@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SongsRec from './components/SongsRec.js';
 import Movies from './components/Movies.js';
-import { Button, Container, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
+import logo from './images/cover.png';
+import './App.css';
+import { Button, Container, Navbar, Nav, Form, FormControl, Image } from 'react-bootstrap';
 import {
   Route,
   HashRouter
@@ -16,8 +18,10 @@ function App() {
 
   return (
     <div>
-      <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-        <Navbar.Brand href="#home">mediaRec</Navbar.Brand>
+      <Navbar className="color-nav" variant="dark" expand="lg" sticky="top">
+        <Navbar.Brand href="#home">
+          <Image src={logo} href="#home" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

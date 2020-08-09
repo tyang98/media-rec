@@ -25,7 +25,7 @@ function Submit({ createPlaylist }) {
         </Modal.Header>
         <Modal.Body>
           <Modal.Title>Enter Title of Playlist</Modal.Title>
-          <Form onSubmit={handleSubmit} className="form">
+          <Form onSubmit={handleSubmit} className="form" style={{ marginTop: '5%' }}>
             <input
               onChange={e => setTerm(e.target.value)}
               className="input"
