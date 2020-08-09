@@ -12,7 +12,7 @@ function PlaylistDisplay({ playlists, numberOfPlaylists }) {
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open}
-        className="button"
+        className="button mx-auto"
       >
         Show Your Playlists
       </Button>

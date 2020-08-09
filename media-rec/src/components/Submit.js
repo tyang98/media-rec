@@ -15,7 +15,7 @@ function Submit({ createPlaylist }) {
 
   return (
     <>
-      <Button variant="primary" className="button" onClick={handleShow}>
+      <Button variant="primary" className="button mx-auto" onClick={handleShow}>
         Add to Your Playlists
       </Button>
 

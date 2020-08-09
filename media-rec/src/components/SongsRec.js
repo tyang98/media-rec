@@ -124,35 +124,35 @@ function SongsRec() {
 
   return (
     <Container className="">
-      <h1>Hello, <b>{user.name}, </b> </h1>
+      <h1>Hello, <b>{user.name}!!! </b> </h1>
 
-      <br></br>
       <h2 className="mt-4">Search Songs</h2>
-      <Container className='mt-5'>
+      <Container className='mt-4 mx-auto'>
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
       </Container>
-      <Container className='mt-5'>
+      <Container className='mt-5 mx-auto'>
         <SongDisplay songs={searchedSongs} addSong={addSong} removeSong={removeSong} symbol={<AddIcon />} />
       </Container>
 
       <h2 className="mt-4">Current list of selected songs</h2>
-      <Container className='mt-5'>
+      <Container className='mt-5 mx-auto'>
         <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
 
-        <Button type="submit" onClick={getRecommended} className="button">Submit</Button>
+        {selectedSongs.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
       </Container>
 
       <h2 className="mt-4">List of Recommended Songs</h2>
       <br></br>
-      <Container className='mt-5' className="overflow-auto" style={{ maxHeight: '1500px' }}>
+      <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
         <SongDisplay songs={recommendedSongs} />
       </Container>
       <br></br>
-      <Container className='mt-5'>
+      <Container className='mt-5 mx-auto'>
         <Submit createPlaylist={createPlaylist} />
       </Container>
 
+      <h2 className="mt-4">Your Playlists</h2>
       <Container className='mt-5'>
         {/* need to take into account to not display empty playlists*/}
         <PlaylistDisplay
