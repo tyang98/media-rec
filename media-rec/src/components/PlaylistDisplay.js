@@ -14,7 +14,7 @@ function PlaylistDisplay({ playlists, numberOfPlaylists }) {
         aria-expanded={open}
         className="button mx-auto"
       >
-        Show Your Playlists
+        {open ? <div>Hide Your Playlists</div> : <div>Show Your Playlists</div>}
       </Button>
       <Collapse in={open}>
         <div style={{ marginTop: '5%' }}>

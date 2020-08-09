@@ -6,8 +6,7 @@ import { ListGroup } from 'react-bootstrap';
 function SongDisplay({ songs, addSong, removeSong, symbol }) {
   return (
     <div className="SongDisplay">
-
-      <ListGroup >
+      <ListGroup>
         {
           !songs ? <div></div> :
             songs.map(song => {

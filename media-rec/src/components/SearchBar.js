@@ -16,19 +16,19 @@ function SearchBar({ token, searchSpotify }) {
 
   return (
     <Form onSubmit={handleSubmit}
-      className="searchBar"
+      className="mx-auto"
       style={{
         fontSize: 25, borderColor: 'black', borderRadius: 20
       }}>
       <input
         onChange={e => setSearchTerm(e.target.value)}
-        className="input"
+        className="input mx-auto"
         placeholder="Enter Song Name"
         value={searchTerm}
       >
       </input>
       <br></br>
-      <Button type="submit" className="button">Search</Button>
+      <Button type="submit" className="button mx-auto">Search</Button>
     </Form >
 
   )

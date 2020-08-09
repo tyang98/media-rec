@@ -1,6 +1,7 @@
 .input {
+  display: flex;
   width: 40%;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-style: solid;
   border-width: 1px;
   border-radius: 2px;
@@ -13,7 +14,7 @@
   justify-content: center;
   align-self: center;
   width: 40%;
-  margin-top: 10px;
+  margin-top: -20px;
   background-color: lightblue;
   border: none;
   color: white;

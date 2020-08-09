@@ -131,7 +131,7 @@ function SongsRec() {
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
       </Container>
-      <Container className='mt-5 mx-auto'>
+      <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: "1000px", marginTop: '3%' }}>
         <SongDisplay songs={searchedSongs} addSong={addSong} removeSong={removeSong} symbol={<AddIcon />} />
       </Container>
 
