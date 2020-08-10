@@ -60,18 +60,10 @@ function SongsRec() {
     setSelectedSongs(selectedSongs.filter((t) => song.name !== t.name));
   }
 
-  const getUserInfo = (accessToken =>
-    fetch('https://api.spotify.com/v1/me', {
-      headers: { 'Authorization': 'Bearer ' + accessToken }
-    })
-      .then(response => response.json())
-      .then(data => {
-        let email = data.email;
-        let name = data.display_name;
-        let id = data.id;
-        setUser({ email, name, id })
-      })
-  );
+  async function getUserInfo(spotifyToken) {
+    const userInfo = await Spotify.getUserInfo(spotifyToken);
+    setUser(userInfo);
+  }
 
   function getPlaylists(accessToken) {
     fetch('https://api.spotify.com/v1/me/playlists', {
@@ -156,51 +148,10 @@ function SongsRec() {
       <Container className='mt-5'>
         {/* need to take into account to not display empty playlists*/}
         <PlaylistDisplay
-          numberOfPlaylists={playlists.length}
-          playlists={
-            <ListGroup className="justify-content-md-center" horizontal>
-              <Row xs={3} md={2} lg={2}>
-                {playlists.map((playlist, index) => (
-                  <ListGroup className="col-md-6 mt-4" key={index} name={playlist.name}>
-                    <Image
-                      src={playlist.image.url}
-                      style={{
-                        width: "75%",
-                        display: "block",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}
-                      alt="none"
-                    ></Image>
-
-                    <a
-                      href={playlist.playlisturl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="badge badge-primary mt-4 mb-4"
-                    >
-                      {playlist.name}
-                    </a>
-                    <Container className="overflow-auto" style={{ maxHeight: "1500px" }}>
-                      {playlist.tracksList == null && playlist.tracksList.length !== 0 ? (
-                        <div></div>
-                      ) : (
-                          playlist.tracksList.map((song, index) => (
-                            <Song
-                              key={index}
-                              song={song}
-                              addSong={addSong}
-                              removeSong={removeSong}
-                              symbol={<AddIcon />}
-                            />
-                          ))
-                        )}
-                    </Container>
-                  </ListGroup>
-                ))}
-              </Row>
-            </ListGroup>
-          }
+          numberOfPlaylists={playlists == null ? [] : playlists.length}
+          playlists={playlists == null ? [] : playlists}
+          addSong={addSong}
+          removeSong={removeSong}
         />
       </Container>
     </Container>

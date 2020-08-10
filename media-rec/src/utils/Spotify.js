@@ -40,7 +40,7 @@ class Spotify {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/', requestOptions);
+      const response = await fetch('http://localhost:5000/songs', requestOptions);
       const jsonResponse = await response.json();
       if (!jsonResponse.tracks) {
         return;
@@ -105,7 +105,21 @@ class Spotify {
     }
   }
 
+  static async getUserInfo(token) {
+    let userInfoJson = await fetch('https://api.spotify.com/v1/me', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+      .then(response => response.json())
+    Promise.all([userInfoJson])
+    let email = userInfoJson.email;
+    let name = userInfoJson.display_name;
+    let id = userInfoJson.id;
+    return { email, name, id }
+
+  }
+
+
 }
 
-export default Spotify;
 
+export default Spotify;

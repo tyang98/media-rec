@@ -20,21 +20,9 @@ function App() {
     <div>
       <Header handleLogIn={handleLogIn} />
       <HashRouter>
-        <Container className="mt-5"></Container>
         <Route path="/songsrec" component={SongsRec} />
         <Route path="/movies" component={Movies} />
       </HashRouter>
-      <Container className="mt-5">
-        <Button
-          onClick={handleLogIn}
-          className="col-md-5"
-          size="lg"
-          variant="outline-primary"
-        >
-          Spotify Log In
-        </Button>
-      </Container>
-      <br></br>
       <Footer />
     </div>
   );
