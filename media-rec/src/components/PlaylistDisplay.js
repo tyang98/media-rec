@@ -23,7 +23,11 @@ function PlaylistDisplay({ playlists, numberOfPlaylists, addSong, removeSong }) 
           <h3>We found {numberOfPlaylists} playlists</h3>
           <br></br>
           <ListGroup className="justify-content-md-center" horizontal>
-            <PlaylistCollapse playlists={playlists} />
+            <PlaylistCollapse
+              playlists={playlists}
+              addSong={addSong}
+              removeSong={removeSong}
+            />
           </ListGroup>
         </div>
       </Collapse>

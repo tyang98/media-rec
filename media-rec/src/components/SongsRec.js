@@ -9,7 +9,6 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import Submit from './Submit.js';
 import PlaylistDisplay from './PlaylistDisplay.js';
 import SongDisplay from './SongDisplay.js';
-import Song from './Song.js';
 
 function SongsRec() {
 
@@ -74,23 +73,31 @@ function SongsRec() {
     <Container className="">
       <br></br>
       <h1>Hello, <b>{user.name}!!! </b> </h1>
+      <ListGroup
+        className="list-group list-group-horizontal"
+        style={{ marginTop: '2%' }}>
+        <ListGroup.Item
+          className="col-md-6 list-group-item"
+        >
+          <h2 className="mt-12" style={{ marginBottom: '5%' }}>Search Songs</h2>
+          <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
-      <h2 className="mt-4">Search Songs</h2>
-      <Container className='mt-4 mx-auto'>
-        <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
-      </Container>
+          <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: "1000px", marginTop: '3%' }}>
+            <SongDisplay songs={searchedSongs} addSong={addSong} removeSong={removeSong} symbol={<AddIcon />} />
+          </Container>
+        </ ListGroup.Item>
+        <ListGroup.Item
+          className="col-md-6 list-group-item"
 
-      <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: "1000px", marginTop: '3%' }}>
-        <SongDisplay songs={searchedSongs} addSong={addSong} removeSong={removeSong} symbol={<AddIcon />} />
-      </Container>
-
-      <h2 className="mt-4">Current list of selected songs</h2>
-      <Container className='mt-5 mx-auto'>
-        <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
-
-        {selectedSongs.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
-      </Container>
+        >
+          <h2 className="mt-12">Current list of selected songs</h2>
+          {/* <Container className='mt-5 mx-auto'> */}
+          <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
+          {selectedSongs.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
+          {/* </Container> */}
+        </ListGroup.Item>
+      </ ListGroup>
 
       <h2 className="mt-4">List of Recommended Songs</h2>
       <br></br>

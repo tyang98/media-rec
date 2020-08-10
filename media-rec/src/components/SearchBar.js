@@ -28,7 +28,7 @@ function SearchBar({ token, searchSpotify }) {
       >
       </input>
       <br></br>
-      <Button type="submit" className="button mx-auto">Search</Button>
+      <Button type="submit" className="searchbutton mx-auto">Search</Button>
     </Form >
 
   )

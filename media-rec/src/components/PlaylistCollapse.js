@@ -11,7 +11,11 @@ function PlaylistCollapse({ playlists, addSong, removeSong }) {
   const [expand, setExpand] = useState(false);
 
   const handleExpand = () => {
-    setExpand(!expand);
+    if (expand) {
+      setExpand(false);
+    } else {
+      setExpand(!expand);
+    }
   }
 
   return (
@@ -22,17 +26,34 @@ function PlaylistCollapse({ playlists, addSong, removeSong }) {
           return (
             <Card>
               <Accordion.Toggle as={Card.Header} eventKey={`${index}`} onClick={handleExpand}>
-                <Container className="overflow-auto">
+                <Container>
+
                   <Row>
-                    <Col xs={9}>{playlist.name}</Col>
-                    <Col xs={3}>{expand ? <ExpandLessIcon /> : <ExpandMoreIcon />}</Col>
+                    <Col xs={10}>{playlist.name}</Col>
+                    < Col xs={2}>{expand ? <ExpandLessIcon /> : <ExpandMoreIcon />}</Col>
                   </Row>
+
                 </Container>
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={`${index}`}>
                 <Card.Body>
-                  Hello
-              </Card.Body>
+                  <Container className="overflow-auto" style={{ maxHeight: "1000px" }}>
+                    {playlist.tracksList == null && playlist.tracksList.length !== 0 ? (
+                      <div></div>
+                    ) : (
+                        playlist.tracksList.map((song, index) => (
+                          <Song
+                            key={index}
+                            song={song}
+                            addSong={addSong}
+                            removeSong={removeSong}
+                            symbol={<AddIcon />}
+                          />
+                        ))
+                      )}
+                  </Container>
+
+                </Card.Body>
               </Accordion.Collapse>
             </Card>
           );
