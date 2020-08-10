@@ -118,8 +118,57 @@ class Spotify {
 
   }
 
+  static async getPlaylists(token) {
+    let playlistData = await fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+      .then(response => response.json())
+
+    const playlistArr = playlistData.items.map(data => {
+      let name = data.name;
+      let id = data.id;
+      let playlistURL = data.external_urls.spotify;
+      let image = data.images[0];
+      return { name, id, playlistURL, image }
+    })
+
+    let playlistTracks = playlistData.items.map(playlist => {
+      let links = Spotify.getTracks(playlist.tracks.href, token);
+      return links;
+    })
+
+    let playlists = await Promise.all(playlistTracks)
+      .then(trackData => {
+          let tracksArr = trackData.map(playlist => playlist.items);
+          let playlistTracks = tracksArr.map(playlist => 
+            playlist.map(item => {
+              let name = item.track.name;
+              let artists = item.track.artists;
+              let id = item.track.id;
+              let imageurl = item.track.album.images[0].url
+              let songurl = item.track.external_urls.spotify;
+              return { name, artists, id, imageurl, songurl }
+            })
+          )
+          let index = 0;
+          let fullPlaylists = playlistArr.map(info => { return { ...info, tracksList: playlistTracks[index++]}})
+          return fullPlaylists
+        }
+      )
+      console.log('SPOTIFY CLASS')
+      console.log(playlists)
+      return playlists;
+  }
+
+  static async getTracks(url, token) {
+    let links = await fetch(url, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+      .then(response => response.json())
+
+    return links;
+  }
 
 }
-
 
 export default Spotify;

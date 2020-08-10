@@ -65,53 +65,9 @@ function SongsRec() {
     setUser(userInfo);
   }
 
-  function getPlaylists(accessToken) {
-    fetch('https://api.spotify.com/v1/me/playlists', {
-      headers: { 'Authorization': 'Bearer ' + accessToken }
-    })
-      .then(response => response.json())
-      .then(playlistData => {
-
-        const playlistArr = playlistData.items.map(data => {
-          let name = data.name;
-          let id = data.id;
-          let playlisturl = data.external_urls.spotify;
-          let image = data.images[0];
-          return { name, id, playlisturl, image };
-        })
-
-
-        let playlistTracks = playlistData.items.map(playlist => {
-          let links = fetch(playlist.tracks.href, {
-            headers: { 'Authorization': 'Bearer ' + accessToken }
-          })
-          let trackPromise = links.then(response => response.json())
-
-          return trackPromise;
-        })
-        Promise.all(playlistTracks)
-          .then(trackData => {
-            let tracksArr = trackData.map(playlist => playlist.items)
-            let playlistsTracks = tracksArr.map(playlist =>
-              playlist.map(item => {
-
-                let name = item.track.name;
-                let artists = item.track.artists;
-                let id = item.track.id;
-                let imageurl = item.track.album.images[0].url;
-                let songurl = item.track.external_urls.spotify;
-                return { name, artists, id, imageurl, songurl };
-              })
-
-            )
-            let index = 0;
-            //Get rid of spread operator for info separate from tracks
-            let fullPlaylists = playlistArr.map(info => { return { ...info, tracksList: playlistsTracks[index++] } })
-            setPlaylists(fullPlaylists);
-          });
-      })
-
-
+  async function getPlaylists(spotifyToken) {
+    const playlists = await Spotify.getPlaylists(spotifyToken);
+    setPlaylists(playlists);
   }
 
   return (
