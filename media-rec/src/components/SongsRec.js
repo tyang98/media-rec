@@ -72,6 +72,7 @@ function SongsRec() {
 
   return (
     <Container className="">
+      <br></br>
       <h1>Hello, <b>{user.name}!!! </b> </h1>
 
       <h2 className="mt-4">Search Songs</h2>
@@ -79,6 +80,7 @@ function SongsRec() {
         <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
       </Container>
+
       <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: "1000px", marginTop: '3%' }}>
         <SongDisplay songs={searchedSongs} addSong={addSong} removeSong={removeSong} symbol={<AddIcon />} />
       </Container>
@@ -110,6 +112,7 @@ function SongsRec() {
           removeSong={removeSong}
         />
       </Container>
+      <br></br>
     </Container>
 
   );

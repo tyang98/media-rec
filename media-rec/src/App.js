@@ -23,6 +23,10 @@ function App() {
         <Route path="/songsrec" component={SongsRec} />
         <Route path="/movies" component={Movies} />
       </HashRouter>
+      <Container className="mt-5">
+
+      </Container>
+      <br></br>
       <Footer />
     </div>
   );
