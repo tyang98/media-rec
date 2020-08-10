@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import './../styles/SearchBar.css';
+import '../../styles/SongSearchBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 
-function SearchBar({ token, searchSpotify }) {
+function SongSearchBar({ token, searchSpotify }) {
   const initialSearchTerm = () => String("" || window.localStorage.getItem('searchTerm'))
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
 
@@ -34,4 +34,4 @@ function SearchBar({ token, searchSpotify }) {
   )
 }
 
-export default SearchBar;
+export default SongSearchBar;

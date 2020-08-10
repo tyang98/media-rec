@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PlaylistCollapse from './PlaylistCollapse.js';
-import AddIcon from '@material-ui/icons/Add';
-import { Container, ListGroup, Collapse, Button, Image, Row } from 'react-bootstrap';
-import Song from './Song.js';
+import { ListGroup, Collapse, Button } from 'react-bootstrap';
+
 
 function PlaylistDisplay({ playlists, numberOfPlaylists, addSong, removeSong }) {
   const [open, setOpen] = useState(false);

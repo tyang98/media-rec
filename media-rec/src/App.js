@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SongsRec from './components/SongsRec.js';
-import Movies from './components/Movies.js';
+import SongsRec from './components/songs/SongsRec.js';
+import MoviesRec from './components/movies/MoviesRec.js';
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
 import './App.css';
-import { Button, Container, Navbar, Nav, Form, FormControl, Image } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import {
   Route,
   HashRouter
@@ -21,7 +21,7 @@ function App() {
       <Header handleLogIn={handleLogIn} />
       <HashRouter>
         <Route path="/songsrec" component={SongsRec} />
-        <Route path="/movies" component={Movies} />
+        <Route path="/moviesrec" component={MoviesRec} />
       </HashRouter>
       <Container className="mt-5">
 

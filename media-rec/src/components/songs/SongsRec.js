@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup, Row, Image, Button } from 'react-bootstrap';
+import { Container, ListGroup, Button } from 'react-bootstrap';
 import queryString from 'query-string';
-import Spotify from './../utils/Spotify.js';
-import SearchBar from './SearchBar.js';
+import Spotify from '../../utils/Spotify.js';
+import SongSearchBar from './SongSearchBar.js';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Submit from './Submit.js';
@@ -80,7 +80,7 @@ function SongsRec() {
           className="col-md-6 list-group-item"
         >
           <h2 className="mt-12" style={{ marginBottom: '5%' }}>Search Songs</h2>
-          <SearchBar token={spotifyToken} searchSpotify={searchSpotify} />
+          <SongSearchBar token={spotifyToken} searchSpotify={searchSpotify} />
 
 
           <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: "1000px", marginTop: '3%' }}>
@@ -91,7 +91,7 @@ function SongsRec() {
           className="col-md-6 list-group-item"
 
         >
-          <h2 className="mt-12">Current list of selected songs</h2>
+          <h2 className="mt-12">Selected Songs</h2>
           {/* <Container className='mt-5 mx-auto'> */}
           <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
           {selectedSongs.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
@@ -99,7 +99,7 @@ function SongsRec() {
         </ListGroup.Item>
       </ ListGroup>
 
-      <h2 className="mt-4">List of Recommended Songs</h2>
+      <h2 className="mt-4">Recommended Songs</h2>
       <br></br>
       <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
         <SongDisplay songs={recommendedSongs} />
