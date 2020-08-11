@@ -35,17 +35,19 @@ class Recommender():
         return list(artist_ids)
 
     @classmethod
-    def _get_related_artists(cls, artist_id):
+    def _get_related_artists(cls, artist_id, get_extra_artists = False):
         related_artists = []
         result = cls.sp.artist_related_artists(artist_id)['artists']
         for artist in result:
             related_artists.append(artist['id'])
         artists = set()
+
+        num_artists = 6 if get_extra_artists else 2
         try:
-            artists.update(related_artists[:2])
+            artists.update(related_artists[:num_artists])
             related_artists.sort(reverse = True, key = cls._get_artist_popularity)
-            artists.update(related_artists[:2])
-            artists.update(random.sample(related_artists[3:], k = 2))
+            artists.update(related_artists[:num_artists])
+            artists.update(random.sample(related_artists[num_artists:], k = num_artists))
         except:
             return []
             
@@ -71,7 +73,7 @@ class Recommender():
         recommended_tracks = set()
         artist_ids = cls._get_artist_ids(track_ids)
         for artist_id in artist_ids:
-            related_artists = cls._get_related_artists(artist_id)
+            related_artists = cls._get_related_artists(artist_id, get_extra_artists = len(artist_ids) < 5)
 
             for artist in related_artists:
                 top_tracks = cls._get_top_tracks(artist)

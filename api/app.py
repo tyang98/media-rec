@@ -26,8 +26,8 @@ def make_song_recommendation():
     try:
         data = request.get_json()
         tracks = data['tracks']
-        if(len(tracks) < 5):
-            return { 'tracks' : tracks }
+        if(len(tracks) < 5): #* NOT SURE ABOUT THE NUMBER OF TRACKS (MAYBE 2??)
+            return { 'message' : 'Not enough tracks to make a recommendation' }, 400
         recommended_tracks = Recommender.make_recommendation(tracks)
         recommended_tracks.append(random.choice(meme_songs))
         random.shuffle(recommended_tracks)
