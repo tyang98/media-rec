@@ -24,7 +24,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #0D2052;
+  opacity: .2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -48,7 +49,8 @@
 }
 
 .color-nav {
-  background-color:	#142454;
+  /* background-color:	#0d2453; */
+  background-color: #0D2052;
 }
 
 .Footer {
@@ -59,7 +61,7 @@
 }
 
 .Footer .footer-middle {
-  background-color:	#142454;
+  background-color:	#0D2052;
   padding-top: 1rem;
   color: white;
 }

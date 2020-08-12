@@ -11,22 +11,20 @@ import {
   Route,
   HashRouter
 } from 'react-router-dom';
+import background from './images/background.png';
 
 function App() {
 
   const handleLogIn = () => window.location = 'http://localhost:8888/login';
 
   return (
-    <div>
+    <div style={{ backgroundImage: `url(${background})`, height: '100%' }}>
       <Header handleLogIn={handleLogIn} />
       <HashRouter>
-        <Route exact path="/" component={() => <Home handleLogin = {handleLogIn} />} />
+        <Route exact path="/" component={() => <Home handleLogin={handleLogIn} />} />
         <Route path="/songsrec" component={SongsRec} />
         <Route path="/moviesrec" component={MoviesRec} />
       </HashRouter>
-      <Container className="mt-5">
-        
-      </Container>
       <br></br>
       <Footer />
     </div>
