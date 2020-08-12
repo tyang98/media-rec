@@ -66,7 +66,6 @@ function MoviesRec() {
           <ListGroup.Item
             className="col-md-6 list-group-item"
           >
-            <br />
             <h2 className="mt-12">Selected Movies</h2>
 
             <MovieDisplay movies={selectedMovies} addMovie={addMovie} removeMovie={removeMovie} symbol={<RemoveIcon />} />
