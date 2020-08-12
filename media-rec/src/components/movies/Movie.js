@@ -24,13 +24,13 @@ function Movie({ key, movie, addMovie, removeMovie, symbol }) {
   return (
     <ListGroup className="list-group list-group-horizontal">
       <ListGroup.Item
-        className="col-md-7 list-group-item"
+        className="col-md-4 list-group-item"
         style={{ borderRight: "none" }}
       >
         <Image src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt="none" style={{ width: "100%" }}></Image>
       </ListGroup.Item>
       <ListGroup.Item
-        className="col-md-4 list-group-item"
+        className="col-md-7 list-group-item"
         style={{ borderLeft: "none", borderRight: "none" }}
       >
         {movie.title}
