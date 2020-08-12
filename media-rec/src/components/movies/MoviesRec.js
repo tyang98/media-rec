@@ -36,7 +36,7 @@ function MoviesRec() {
   }
 
   const removeMovie = (movie) => {
-    setSelectedMovies(selectedMovies.filter((t) => movie.title !== t.title));
+    setSelectedMovies(selectedMovies.filter((t) => movie.id !== t.id));
   }
 
   async function getRecommended() {

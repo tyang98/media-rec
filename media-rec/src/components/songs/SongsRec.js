@@ -56,7 +56,7 @@ function SongsRec() {
   }
 
   const removeSong = (song) => {
-    setSelectedSongs(selectedSongs.filter((t) => song.name !== t.name));
+    setSelectedSongs(selectedSongs.filter((t) => song.id !== t.id));
   }
 
   async function getUserInfo(spotifyToken) {
