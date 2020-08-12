@@ -27,7 +27,7 @@ function Movie({ key, movie, addMovie, removeMovie, symbol }) {
         className="col-md-4 list-group-item"
         style={{ borderRight: "none" }}
       >
-        <Image src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt="none" style={{ width: "100%" }}></Image>
+        <Image src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt="No Image" style={{ width: "100%" }}></Image>
       </ListGroup.Item>
       <ListGroup.Item
         className="col-md-7 list-group-item"

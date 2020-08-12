@@ -16,7 +16,7 @@ class Movies {
       let recommendedMovies = Movies.getRecommended(movieId)
         .then(recommendedMovies => {
           recommendedMovies.map((movie) => {
-            if (genres == null || movie.genre_ids.some(genre => genres.indexOf(genre) >= 0))
+            if (genres.length == 0 || movie.genre_ids.some(genre => genres.indexOf(genre) >= 0))
               movies.push(movie);
           })
         })
