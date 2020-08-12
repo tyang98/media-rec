@@ -13,9 +13,11 @@ class Movies {
   static async getRecommendedMovies(movieIds, genres) {
     let movies = await Movies.getMoviesList(movieIds, genres)
       .then(moviesList => {
-        let emptyArr = []
-        moviesList.forEach(movies => emptyArr = emptyArr.concat(movies))
-        return emptyArr
+        let arr = []
+        moviesList.forEach(movies => {
+          arr = arr.concat(movies)
+        })
+        return arr
       })
     return Promise.all(movies);
   }
@@ -28,18 +30,13 @@ class Movies {
             if (genres.length == 0 || movie.genre_ids.some(genre => genres.indexOf(genre) >= 0))
               return movie;
           })
-          console.log(movies)
           return movies;
         })
       return Promise.resolve(movies);
     })
     
-    // console.log('MOVIES')
-    // console.log(movies)
-    console.log('2')
-    return movies;
+    return Promise.all(movies);
   }
-
 
   static async getRecommended(movieId) {
     const apiKey = process.env.REACT_APP_MOVIE_API_KEY;
@@ -47,9 +44,10 @@ class Movies {
     let recommendedMovies = await fetch(url)
       .then(response => response.json())
       .then(data => data.results);
-      console.log('1')
     return recommendedMovies
   }
 }
+
+
 
 export default Movies;

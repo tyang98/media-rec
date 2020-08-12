@@ -23,7 +23,7 @@ function App() {
         <Route path="/moviesrec" component={MoviesRec} />
       </HashRouter>
       <Container className="mt-5">
-
+        
       </Container>
       <br></br>
       <Footer />

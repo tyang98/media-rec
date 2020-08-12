@@ -42,14 +42,10 @@ function MoviesRec() {
   async function getRecommended() {
     let movieIds = selectedMovies.map(movie => movie.id);
     let movies = await Movies.getRecommendedMovies(movieIds, new Array());
-    console.log('MOVIES')
-    console.log(movies)
-    setRecommendedMovies(movies[0])
-    
-    console.log('3')
+    movies = shuffle(movies);
+    setRecommendedMovies(movies)
   }
-  // console.log('Recommended Movies')
-  // console.log(recommendedMovies)
+
   return (
     <Container>
       <div className="moviesrec">
@@ -79,7 +75,6 @@ function MoviesRec() {
         </ ListGroup>
         <h2 className="mt-5 text-center">Recommended Movies</h2>
         <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
-          {console.log('4')}
           <MovieDisplay size={"large"} movies={recommendedMovies} />
         </Container>
         <br></br>
@@ -87,6 +82,17 @@ function MoviesRec() {
     </ Container>
   );
 
+}
+
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = a[i];
+      a[i] = a[j];
+      a[j] = x;
+  }
+  return a;
 }
 
 export default MoviesRec;
