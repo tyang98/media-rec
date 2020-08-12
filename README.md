@@ -4,5 +4,5 @@
 
 Uses `React`, `Node.js`, and `Flask` to make a recommender for songs and movies. 
 
-![Image of mediaRec](https://imgur.com/hT6DCJN)
+![Imgur](https://i.imgur.com/Rv6fmQT.png)
 
