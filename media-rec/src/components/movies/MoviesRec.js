@@ -41,11 +41,15 @@ function MoviesRec() {
 
   async function getRecommended() {
     let movieIds = selectedMovies.map(movie => movie.id);
-    const recommendedMovies = await Movies.getRecommendedMovies(movieIds, new Array());
-    setRecommendedMovies(recommendedMovies)
+    let movies = await Movies.getRecommendedMovies(movieIds, new Array());
+    console.log('MOVIES')
+    console.log(movies)
+    setRecommendedMovies(movies[0])
+    
+    console.log('3')
   }
-
-
+  // console.log('Recommended Movies')
+  // console.log(recommendedMovies)
   return (
     <Container>
       <div className="moviesrec">
@@ -75,6 +79,7 @@ function MoviesRec() {
         </ ListGroup>
         <h2 className="mt-5 text-center">Recommended Movies</h2>
         <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
+          {console.log('4')}
           <MovieDisplay size={"large"} movies={recommendedMovies} />
         </Container>
         <br></br>

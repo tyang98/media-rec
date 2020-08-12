@@ -11,16 +11,32 @@ class Movies {
   }
 
   static async getRecommendedMovies(movieIds, genres) {
-    let movies = new Array();
-    movieIds.map((movieId) => {
-      Movies.getRecommended(movieId)
+    let movies = await Movies.getMoviesList(movieIds, genres)
+      .then(moviesList => {
+        let emptyArr = []
+        moviesList.forEach(movies => emptyArr = emptyArr.concat(movies))
+        return emptyArr
+      })
+    return Promise.all(movies);
+  }
+
+  static async getMoviesList(movieIds, genres) {
+    let movies = await movieIds.map((movieId) => {
+      let movies = Movies.getRecommended(movieId)
         .then(recommendedMovies => {
-          recommendedMovies.map((movie) => {
+          let movies = recommendedMovies.map((movie) => {
             if (genres.length == 0 || movie.genre_ids.some(genre => genres.indexOf(genre) >= 0))
-              movies.push(movie);
+              return movie;
           })
+          console.log(movies)
+          return movies;
         })
+      return Promise.resolve(movies);
     })
+    
+    // console.log('MOVIES')
+    // console.log(movies)
+    console.log('2')
     return movies;
   }
 
@@ -31,6 +47,7 @@ class Movies {
     let recommendedMovies = await fetch(url)
       .then(response => response.json())
       .then(data => data.results);
+      console.log('1')
     return recommendedMovies
   }
 }

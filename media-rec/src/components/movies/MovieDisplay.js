@@ -13,9 +13,6 @@ function MovieDisplay({ size, movies, addMovie, removeMovie, symbol }) {
 
               <Movie
                 size={size}
-                size={size}
-                size={size}
-                size={size}
                 key={movie.id}
                 movie={movie}
                 addMovie={addMovie}
