@@ -13,11 +13,13 @@ class Movies {
   static async getRecommendedMovies(movieIds, genres) {
     let movies = new Array();
     movieIds.map((movieId) => {
-      let recommendedMovies = Movies.getRecommended(movieId);
-      recommendedMovies.map((movie) => {
-        if (movie.genre_ids.some(genre => genres.indexOf(genre) >= 0))
-          movies.push(movie.id);
-      })
+      let recommendedMovies = Movies.getRecommended(movieId)
+        .then(recommendedMovies => {
+          recommendedMovies.map((movie) => {
+            if (genres == null || movie.genre_ids.some(genre => genres.indexOf(genre) >= 0))
+              movies.push(movie);
+          })
+        })
     })
     return movies;
   }
