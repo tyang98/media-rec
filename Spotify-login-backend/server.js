@@ -1,3 +1,4 @@
+require('dotenv').config()
 let express = require('express')
 let request = require('request')
 let querystring = require('querystring')

@@ -72,10 +72,11 @@ function SongsRec() {
   return (
     <Container className="">
       <br></br>
-      <h1>Hello, <b>{user.name}!!! </b> </h1>
+      <h1>Hello, <b>{user.name}!!! </b> <span class="wave">👋</span> </h1>
+      <h2 style={{ marginTop: '10px' }} >Get started by searching for songs. </h2>
       <ListGroup
         className="list-group list-group-horizontal"
-        style={{ marginTop: '2%' }}>
+        style={{ marginTop: '3%' }}>
         <ListGroup.Item
           className="col-md-6 list-group-item"
         >
@@ -92,15 +93,14 @@ function SongsRec() {
 
         >
           <h2 className="mt-12">Selected Songs</h2>
-          {/* <Container className='mt-5 mx-auto'> */}
+
           <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
           {selectedSongs.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
-          {/* </Container> */}
+
         </ListGroup.Item>
       </ ListGroup>
 
-      <h2 className="mt-4">Recommended Songs</h2>
-      <br></br>
+      <h2 className="mt-5 text-center">Recommended Songs</h2>
       <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
         <SongDisplay songs={recommendedSongs} />
       </Container>
@@ -109,7 +109,7 @@ function SongsRec() {
         <Submit createPlaylist={createPlaylist} />
       </Container>
 
-      <h2 className="mt-4">Your Playlists</h2>
+      <h2 className="mt-5 text-center">Your Playlists</h2>
       <Container className='mt-5'>
         {/* need to take into account to not display empty playlists*/}
         <PlaylistDisplay

@@ -57,14 +57,14 @@ function Song({ key, song, addSong, removeSong, symbol }) {
       </ListGroup.Item>
       <ListGroup.Item
         className="col-md-1 list-group-item"
-        style={{ borderLeft: "none" }}
+        style={{ borderLeft: "none", paddingRight: '2%' }}
       >
         <IconButton
           onClick={handleClick}
           style={{
             alignSelf: "flex-start",
             paddingLeft: "0px",
-            paddingRight: "0px",
+            paddingRight: '0px',
           }}
         >
           {symbol}

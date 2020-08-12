@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ListGroup } from 'react-bootstrap';
+import { Container, ListGroup, Button } from 'react-bootstrap';
 import MovieSearchBar from './MovieSearchBar';
 import MovieDisplay from './MovieDisplay';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import Movies from '../../utils/Movies';
 
 function MoviesRec() {
@@ -37,25 +39,48 @@ function MoviesRec() {
     setSelectedMovies(selectedMovies.filter((t) => movie.name !== t.name));
   }
 
+  async function getRecommended() {
+    let movieIds = selectedMovies.map(movie => movie.id);
+    const recommendedMovies = await Movies.getRecommended(movieIds);
+    setRecommendedMovies(recommendedMovies)
+  }
+
+
   return (
-    <div className="moviesrec">
-      <ListGroup
-        className="list-group list-group-horizontal"
-        style={{ marginTop: '2%' }}
-      >
-        <ListGroup.Item
-          className="col-md-6 list-group-item"
+    <Container>
+      <div className="moviesrec">
+        <h1 style={{ marginTop: '10px' }} >Get started by searching for movies. </h1>
+        <ListGroup
+          className="list-group list-group-horizontal"
+          style={{ marginTop: '2%' }}
         >
-          <MovieSearchBar searchMovie={searchMovie} />
-          <Container className="mt-5 mx-auto overflow-auto" style={{ maxHeight: "1000px", marginTop: '3%' }}>
-            <MovieDisplay movies={searchedMovies} addMovie={addMovie} removeMovie={removeMovie} />
-          </Container>
-        </ListGroup.Item>
+          <ListGroup.Item
+            className="col-md-6 list-group-item"
+          >
+            <h2 className="mt-12" style={{ marginBottom: '5%' }}>Search Movies</h2>
+            <MovieSearchBar searchMovie={searchMovie} />
+            <Container className="mt-5 mx-auto overflow-auto" style={{ maxHeight: "1500px", marginTop: '3%' }}>
+              <MovieDisplay movies={searchedMovies} addMovie={addMovie} removeMovie={removeMovie} symbol={<AddIcon />} />
+            </Container>
+          </ListGroup.Item>
+          <ListGroup.Item
+            className="col-md-6 list-group-item"
+          >
+            <br />
+            <h2 className="mt-12">Selected Movies</h2>
 
+            <MovieDisplay movies={selectedMovies} addMovie={addMovie} removeMovie={removeMovie} symbol={<RemoveIcon />} />
+            {selectedMovies.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
+          </ListGroup.Item>
 
-
-      </ ListGroup>
-    </div>
+        </ ListGroup>
+        <h2 className="mt-5 text-center">Recommended Movies</h2>
+        <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
+          <MovieDisplay movies={recommendedMovies} />
+        </Container>
+        <br></br>
+      </div>
+    </ Container>
   );
 
 }
