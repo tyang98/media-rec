@@ -11,7 +11,6 @@ import {
   HashRouter
 } from 'react-router-dom';
 
-
 function App() {
 
   const handleLogIn = () => window.location = 'http://localhost:8888/login';
