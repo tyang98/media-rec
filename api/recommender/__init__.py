@@ -17,7 +17,7 @@ class Recommender():
 
     @classmethod
     def test(cls, track_ids):
-        return cls._get_recommended_tracks(track_ids)
+        return cls._get_related_tracks(track_ids)
 
     @classmethod 
     def make_recommendation(cls, track_ids):
@@ -35,14 +35,14 @@ class Recommender():
         return list(artist_ids)
 
     @classmethod
-    def _get_related_artists(cls, artist_id, get_extra_artists = False):
+    def _get_related_artists(cls, artist_id):
         related_artists = []
         result = cls.sp.artist_related_artists(artist_id)['artists']
         for artist in result:
             related_artists.append(artist['id'])
         artists = set()
 
-        num_artists = 6 if get_extra_artists else 2
+        num_artists = 5
         try:
             artists.update(related_artists[:num_artists])
             related_artists.sort(reverse = True, key = cls._get_artist_popularity)
@@ -73,17 +73,23 @@ class Recommender():
         recommended_tracks = set()
         artist_ids = cls._get_artist_ids(track_ids)
         for artist_id in artist_ids:
-            related_artists = cls._get_related_artists(artist_id, get_extra_artists = len(artist_ids) < 5)
+            related_artists = cls._get_related_artists(artist_id)
 
             for artist in related_artists:
                 top_tracks = cls._get_top_tracks(artist)
                 recommended_tracks.update(top_tracks)
+        recommended_tracks = list(recommended_tracks)
+        recommended_tracks.sort(reverse = True, key = cls._get_track_popularity)
         return random.sample(list(recommended_tracks), k = 100 \
             if len(recommended_tracks) > 100 else len(recommended_tracks))
 
     @classmethod
     def _get_artist_popularity(cls, artist_id):
         return cls.sp.artist(artist_id)['popularity']
+
+    @classmethod 
+    def _get_track_popularity(cls, track_id):
+        return cls.sp.track(track_id)['popularity']
 
     @classmethod
     def _get_audio_features(cls, track_ids):
@@ -96,8 +102,8 @@ class Recommender():
             'instrumentalness',
             'tempo'
         ])
+
         track_audio_features = cls.sp.audio_features(track_ids)
-        # return track_audio_features
         for i in range(len(track_audio_features)):
             track = track_audio_features[i]
             df.loc[i] = [

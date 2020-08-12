@@ -31,7 +31,7 @@ def make_song_recommendation():
         recommended_tracks = Recommender.make_recommendation(tracks)
         recommended_tracks.append(random.choice(meme_songs))
         random.shuffle(recommended_tracks)
-        return { 'tracks' : recommended_tracks }
+        return { 'length' : len(recommended_tracks), 'tracks' : recommended_tracks }
     except:
         return { 'message' : 'There was an issue generating recommended tracks' }, 500
 
@@ -40,6 +40,7 @@ def make_song_recommendation():
 def make_movie_recommendation():
     try:
         data = request.get_json()
+        return { 'movies' : movies}
         # TODO 
     except:
         return { 'message' : 'There was an issue generating movie recommendations' }, 500
@@ -49,7 +50,7 @@ def make_movie_recommendation():
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
     response.headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    response.headers['Access-Control-Allow-Methods'] = 'POST'
     response.headers['Access-Control-Allow-Credentials'] = 'false'
     return response
 
