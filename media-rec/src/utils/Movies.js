@@ -13,8 +13,7 @@ class Movies {
   static async getRecommendedMovies(movieIds, genres) {
     let movies = new Array();
     movieIds.map((movieId) => {
-
-      let recommendedMovies = Movies.getRecommended(movieId)
+      Movies.getRecommended(movieId)
         .then(recommendedMovies => {
           recommendedMovies.map((movie) => {
             if (genres.length == 0 || movie.genre_ids.some(genre => genres.indexOf(genre) >= 0))
