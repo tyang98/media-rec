@@ -3,7 +3,7 @@ import Movie from './Movie.js';
 import { ListGroup } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function MovieDisplay({ movies, addMovie, removeMovie, symbol }) {
+function MovieDisplay({ size, movies, addMovie, removeMovie, symbol }) {
   return (
     <div className="MovieDisplay">
       <ListGroup>
@@ -12,6 +12,7 @@ function MovieDisplay({ movies, addMovie, removeMovie, symbol }) {
             movies.map(movie =>
 
               <Movie
+                size={size}
                 key={movie.id}
                 movie={movie}
                 addMovie={addMovie}
