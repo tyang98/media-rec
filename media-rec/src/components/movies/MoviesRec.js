@@ -41,7 +41,7 @@ function MoviesRec() {
 
   async function getRecommended() {
     let movieIds = selectedMovies.map(movie => movie.id);
-    const recommendedMovies = await Movies.getRecommendedMovies(movieIds, null);
+    const recommendedMovies = await Movies.getRecommended(movieIds);
     setRecommendedMovies(recommendedMovies)
   }
 
