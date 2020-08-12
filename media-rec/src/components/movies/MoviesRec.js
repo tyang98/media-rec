@@ -60,7 +60,7 @@ function MoviesRec() {
             <h2 className="mt-12" style={{ marginBottom: '5%' }}>Search Movies</h2>
             <MovieSearchBar searchMovie={searchMovie} />
             <Container className="mt-5 mx-auto overflow-auto" style={{ maxHeight: "1500px", marginTop: '3%' }}>
-              <MovieDisplay movies={searchedMovies} addMovie={addMovie} removeMovie={removeMovie} symbol={<AddIcon />} />
+              <MovieDisplay size={"small"} movies={searchedMovies} addMovie={addMovie} removeMovie={removeMovie} symbol={<AddIcon />} />
             </Container>
           </ListGroup.Item>
           <ListGroup.Item
@@ -68,14 +68,14 @@ function MoviesRec() {
           >
             <h2 className="mt-12">Selected Movies</h2>
 
-            <MovieDisplay movies={selectedMovies} addMovie={addMovie} removeMovie={removeMovie} symbol={<RemoveIcon />} />
+            <MovieDisplay size={"small"} movies={selectedMovies} addMovie={addMovie} removeMovie={removeMovie} symbol={<RemoveIcon />} />
             {selectedMovies.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
           </ListGroup.Item>
 
         </ ListGroup>
         <h2 className="mt-5 text-center">Recommended Movies</h2>
         <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
-          <MovieDisplay movies={recommendedMovies} />
+          <MovieDisplay size={"large"} movies={recommendedMovies} />
         </Container>
         <br></br>
       </div>
