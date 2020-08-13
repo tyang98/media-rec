@@ -18,7 +18,7 @@ function Home({ handleLogin }) {
         <img src={transparentLogo} className="center mx-auto" style={{ maxWidth: '750px', display: 'block', position: 'relative', top: '-60px' }} />
         <Row >
           <Col className='col-md-4' style={{ position: 'relative', left: '-150px' }}>
-            <Card style={{ width: '450px', height: '350px', position: 'relative', top: '-75px' }}>
+            <Card style={{ width: '450px', height: '350px', position: 'relative', top: '-100px' }}>
               <Card.Img variant='top' src={card1} />
               <Card.Title>Integrated with Spotify</Card.Title>
               <Card.Text>Search Your Favorite Songs for Recommendations</Card.Text>
@@ -26,7 +26,7 @@ function Home({ handleLogin }) {
           </Col>
 
           <Col className='col-md-4'>
-            <Card style={{ width: '450px', height: '350px', position: 'relative', top: '-75px' }}>
+            <Card style={{ width: '450px', height: '350px', position: 'relative', top: '-100px' }}>
               <Card.Img variant='top' src={card2} />
               <Card.Title>Expand your library</Card.Title>
               <Card.Text>Add Recommended Songs to Your Playlists</Card.Text>
@@ -34,7 +34,7 @@ function Home({ handleLogin }) {
           </Col>
 
           <Col className='col-md-4' style={{ position: 'relative', right: '-150px' }}>
-            <Card style={{ width: '450px', height: '350px', position: 'relative', top: '-75px' }}>
+            <Card style={{ width: '450px', height: '350px', position: 'relative', top: '-100px' }}>
               <Card.Img variant='top' src={card3} />
               <Card.Title>Watch new titles</Card.Title>
               <Card.Text>Search Your Favorite Movie for Recommendations</Card.Text>
@@ -46,7 +46,6 @@ function Home({ handleLogin }) {
         <h4 style={{ textAlign: 'center', color: '#fff' }}>
           <b> To get started, choose either songs or movies to get recommendations! </b>
         </h4>
-        <br></br>
       </div >
       <Container className="mx-auto mt-4">
         <Row>
