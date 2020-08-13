@@ -14,7 +14,7 @@ import {
 
 function App() {
 
-  const handleLogIn = () => window.location = 'http://localhost:8888/login';
+  const handleLogIn = () => window.location = 'https://media-rec-songs.herokuapp.com/login';
 
   return (
     <div>
