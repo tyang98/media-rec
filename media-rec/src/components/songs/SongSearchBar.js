@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 
 function SongSearchBar({ token, searchSpotify }) {
-  const initialSearchTerm = () => String("" || window.localStorage.getItem('searchTerm'))
-  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
