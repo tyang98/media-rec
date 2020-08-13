@@ -18,7 +18,8 @@ meme_songs = [
     '1Y2xv06UOclv7HpuMSqFq1',
     '3DamFFqW32WihKkTVlwTYQ',
     '4fK6E2UywZTJIa5kWnCD6x',
-    '7uHO4AmKtyGa5v5fsElGoC'
+    '7uHO4AmKtyGa5v5fsElGoC',
+    '3OIHgTyQdiAGMmpjQaNxp3'
 ]
 
 @app.route('/songs', methods = ['POST'])
@@ -26,7 +27,7 @@ def make_song_recommendation():
     try:
         data = request.get_json()
         tracks = data['tracks']
-        if(len(tracks) < 5): #* NOT SURE ABOUT THE NUMBER OF TRACKS (MAYBE 2??)
+        if(len(tracks) < 3): #* NOT SURE ABOUT THE NUMBER OF TRACKS (MAYBE 2??)
             return { 'message' : 'Not enough tracks to make a recommendation' }, 400
         recommended_tracks = Recommender.make_recommendation(tracks)
         recommended_tracks.append(random.choice(meme_songs))
