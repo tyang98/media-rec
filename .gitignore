@@ -4,7 +4,6 @@ venv/
 node_modules/
 __pycache__/
 yarn.lock
-package.json
 !api/recommender/
 **/.cache*
 .env
