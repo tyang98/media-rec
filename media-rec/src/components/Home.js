@@ -4,6 +4,9 @@ import { Container, Button, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import background from '.././images/background.png';
 import transparentLogo from './../images/logo-transparent.png'
+import card1 from './../images/card1.png'
+import card2 from './../images/card2.png'
+import card3 from './../images/card3.png'
 
 function Home({ handleLogin }) {
   return (
@@ -13,34 +16,34 @@ function Home({ handleLogin }) {
       <div className="container" styles={{ display: 'flex', justifyContent: 'center' }}>
 
         <img src={transparentLogo} className="center mx-auto" style={{ maxWidth: '750px', display: 'block', position: 'relative', top: '-60px' }} />
-        <Row fluid>
+        <Row >
           <Col className='col-md-4'>
-            <Card style={{ width: '300px', height: '350px', position: 'relative', top: '-75px' }}>
-              <Card.Img variant='top' src={background} />
-              <Card.Title>Title</Card.Title>
-              <Card.Text>Some card text</Card.Text>
+            <Card style={{ width: '350px', height: '350px', position: 'relative', top: '-75px' }}>
+              <Card.Img variant='top' src={card1} />
+              <Card.Title>Integrated with Spotify</Card.Title>
+              <Card.Text>Search Your Favorite Songs for Recommendations</Card.Text>
             </Card>
           </Col>
 
           <Col className='col-md-4'>
-            <Card style={{ width: '300px', height: '350px', position: 'relative', top: '-75px' }}>
-              <Card.Img variant='top' src={background} />
-              <Card.Title>Title</Card.Title>
-              <Card.Text>Some card text</Card.Text>
+            <Card style={{ width: '350px', height: '350px', position: 'relative', top: '-75px' }}>
+              <Card.Img variant='top' src={card2} />
+              <Card.Title>Expand your library</Card.Title>
+              <Card.Text>Add Recommended Songs to Your Playlists</Card.Text>
             </Card>
           </Col>
 
           <Col className='col-md-4'>
-            <Card style={{ width: '300px', height: '350px', position: 'relative', top: '-75px' }}>
-              <Card.Img variant='top' src={background} />
-              <Card.Title>Title</Card.Title>
-              <Card.Text>Some card text</Card.Text>
+            <Card style={{ width: '350px', height: '350px', position: 'relative', top: '-75px' }}>
+              <Card.Img variant='top' src={card3} />
+              <Card.Title>Watch new titles</Card.Title>
+              <Card.Text>Search Your Favorite Movie for Recommendations</Card.Text>
             </Card>
           </Col>
 
         </Row>
 
-        <h4 style={{ textAlign: 'center', color: '#fff', marginTop: '2%' }}>
+        <h4 style={{ textAlign: 'center', color: '#fff' }}>
           <b> To get started, choose either songs or movies to get recommendations! </b>
         </h4>
         <br></br>
