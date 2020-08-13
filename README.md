@@ -6,4 +6,3 @@ Uses `React`, `Node.js`, and `Flask` to make a recommender for songs and movies.
 
 # Homepage
 ![Imgur](https://imgur.com/VSXBeJt)
-
