@@ -22,7 +22,7 @@ function SongsRec() {
 
 
   useEffect(() => {
-    let accessToken = queryString.parse(window.location.href.slice(32)).access_token
+    let accessToken = queryString.parse(window.location.href.slice(42)).access_token
     getUserInfo(accessToken);
     getPlaylists(accessToken);
     setSpotifyToken(accessToken);
