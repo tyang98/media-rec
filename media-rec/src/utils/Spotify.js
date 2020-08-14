@@ -23,7 +23,6 @@ class Spotify {
     }
     catch (err) {
       alert(err)
-      console.log(err);
     }
   }
 
@@ -40,7 +39,7 @@ class Spotify {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/songs', requestOptions);
+      const response = await fetch('https://songs-rec-algo.herokuapp.com/songs', requestOptions);
       const jsonResponse = await response.json();
       if (!jsonResponse.tracks) {
         return;
@@ -139,25 +138,23 @@ class Spotify {
 
     let playlists = await Promise.all(playlistTracks)
       .then(trackData => {
-          let tracksArr = trackData.map(playlist => playlist.items);
-          let playlistTracks = tracksArr.map(playlist => 
-            playlist.map(item => {
-              let name = item.track.name;
-              let artists = item.track.artists;
-              let id = item.track.id;
-              let imageurl = item.track.album.images[0].url
-              let songurl = item.track.external_urls.spotify;
-              return { name, artists, id, imageurl, songurl }
-            })
-          )
-          let index = 0;
-          let fullPlaylists = playlistArr.map(info => { return { ...info, tracksList: playlistTracks[index++]}})
-          return fullPlaylists
-        }
+        let tracksArr = trackData.map(playlist => playlist.items);
+        let playlistTracks = tracksArr.map(playlist =>
+          playlist.map(item => {
+            let name = item.track.name;
+            let artists = item.track.artists;
+            let id = item.track.id;
+            let imageurl = item.track.album.images[0].url
+            let songurl = item.track.external_urls.spotify;
+            return { name, artists, id, imageurl, songurl }
+          })
+        )
+        let index = 0;
+        let fullPlaylists = playlistArr.map(info => { return { ...info, tracksList: playlistTracks[index++] } })
+        return fullPlaylists
+      }
       )
-      console.log('SPOTIFY CLASS')
-      console.log(playlists)
-      return playlists;
+    return playlists;
   }
 
   static async getTracks(url, token) {

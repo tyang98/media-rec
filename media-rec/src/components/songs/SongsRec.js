@@ -9,6 +9,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import Submit from './Submit.js';
 import PlaylistDisplay from './PlaylistDisplay.js';
 import SongDisplay from './SongDisplay.js';
+import Loading from './../../images/loading.gif';
 
 function SongsRec() {
 
@@ -17,6 +18,7 @@ function SongsRec() {
   const [selectedSongs, setSelectedSongs] = useState([]);
   const [recommendedSongs, setRecommendedSongs] = useState([]);
   const [user, setUser] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [playlists, setPlaylists] = useState([]);
 
@@ -34,8 +36,10 @@ function SongsRec() {
   }
 
   async function getRecommended() {
+    setIsLoading(true);
     const recSongs = await Spotify.getRecommended(selectedSongs, spotifyToken);
     setRecommendedSongs(recSongs);
+    setIsLoading(false);
   }
 
   async function createPlaylist(title) {
@@ -93,6 +97,7 @@ function SongsRec() {
 
         >
           <h2 className="mt-12">Selected Songs</h2>
+          <h3>Choose at least 3 songs</h3>
 
           <SongDisplay songs={selectedSongs} addSong={addSong} removeSong={removeSong} symbol={<RemoveIcon />} />
           {selectedSongs.length !== 0 ? <Button type="submit" onClick={getRecommended} className="button mx-auto mt-3">Submit</Button> : ""}
@@ -102,6 +107,7 @@ function SongsRec() {
 
       <h2 className="mt-5 text-center">Recommended Songs</h2>
       <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
+        {isLoading ? <img className="center mx-auto" src={Loading} /> : <></>}
         <SongDisplay songs={recommendedSongs} />
       </Container>
       <br></br>
@@ -119,6 +125,8 @@ function SongsRec() {
           removeSong={removeSong}
         />
       </Container>
+      <br></br>
+      <br></br>
       <br></br>
     </Container>
 

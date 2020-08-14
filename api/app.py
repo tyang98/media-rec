@@ -49,7 +49,7 @@ def make_movie_recommendation():
 
 @app.after_request
 def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+    response.headers['Access-Control-Allow-Origin'] = 'https://media-rec.herokuapp.com'
     response.headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept'
     response.headers['Access-Control-Allow-Methods'] = 'POST'
     response.headers['Access-Control-Allow-Credentials'] = 'false'
