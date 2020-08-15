@@ -107,7 +107,7 @@ function SongsRec() {
 
       <h2 className="mt-5 text-center">Recommended Songs</h2>
       <Container className='mt-5 mx-auto' className="overflow-auto" style={{ maxHeight: '1500px' }}>
-        {isLoading ? <img className="center mx-auto" src={Loading} /> : <></>}
+        {isLoading ? <img className="center mx-auto" style={{ marginLeft: 'auto', marginRight: 'auto', display: 'block' }} src={Loading} /> : <></>}
         <SongDisplay songs={recommendedSongs} />
       </Container>
       <br></br>
@@ -117,7 +117,6 @@ function SongsRec() {
 
       <h2 className="mt-5 text-center">Your Playlists</h2>
       <Container className='mt-5'>
-        {/* need to take into account to not display empty playlists*/}
         <PlaylistDisplay
           numberOfPlaylists={playlists == null ? [] : playlists.length}
           playlists={playlists == null ? [] : playlists}
