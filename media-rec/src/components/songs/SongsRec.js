@@ -77,7 +77,7 @@ function SongsRec() {
     <Container className="">
       <br></br>
       <h1>Hello, <b>{user.name}!!! </b> <span class="wave">👋</span> </h1>
-      <h2 style={{ marginTop: '10px' }} >Get started by searching for songs. </h2>
+      <h2 style={{ marginTop: '10px' }} >Get started by searching or choosing songs from your playlists. </h2>
       <ListGroup
         className="list-group list-group-horizontal"
         style={{ marginTop: '3%' }}>
