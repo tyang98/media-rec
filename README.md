@@ -24,7 +24,7 @@ Uses `React`, `Node.js`, and `Flask` to make a recommender for songs and movies.
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
- <img src="./media-rec/src/images/logo-transparent.png" alt="Logo" width="1000">
+ <img src="./media-rec/src/images/logo.png" alt="Logo" width="1000">
 
 MediaRec is a songs and movies recommender that allows for an easy experience by just searching songs and/or movies and getting recommendations with the click of a button.
 
