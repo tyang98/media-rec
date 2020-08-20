@@ -86,7 +86,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Kyle Lai - [@kyle-lai-01](https://github.com/kyle-lai-01) - kl655@cornell.edu <br/>
 Henry Li- [@henryli6](https://github.com/henryli6) - hl738@cornell.edu <br/>
-Tony Yang - [@tyang98](https://github.com/tyang98) - tony.yang98@gmail.com
+Tony Yang - [@tyang98](https://github.com/tyang98) - txy3@cornell.edu
 
 Project Link: [https://github.com/tyang98/media-rec](https://github.com/tyang98/media-rec)
 
